@@ -1,0 +1,151 @@
+@import 'tailwindcss';
+
+/* ── VELORA design tokens ─────────────────────────────────────────────────
+   Editorial minimalism: warm ivory paper, ink type, champagne-gold accent.
+   Text pairs are chosen for ≥4.5:1 contrast (gold is decorative / large text only). */
+@theme {
+  --color-ivory: #f6f3ee;
+  --color-paper: #fbf9f6;
+  --color-sand: #ede7de;
+  --color-line: #e2dcd3;
+  --color-line-strong: #cbc3b7;
+  --color-ink: #0c0a09;
+  --color-charcoal: #1c1917;
+  --color-graphite: #44403c;
+  --color-muted: #57534e;
+  --color-gold: #b08d57;
+  --color-gold-deep: #7a5c2e;
+  --color-champagne: #e9dcc4;
+  --color-sale: #9f1d1d;
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+  --color-warning: #92400e;
+
+  --font-display: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
+  --font-sans: var(--font-jost), 'Jost', system-ui, sans-serif;
+
+  --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-luxe: cubic-bezier(0.64, 0, 0.78, 0);
+
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes shimmer {
+    0% { background-position: -400px 0; }
+    100% { background-position: 400px 0; }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  ::selection {
+    background: var(--color-charcoal);
+    color: var(--color-ivory);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-gold-deep);
+    outline-offset: 3px;
+  }
+  button, [role='button'], a, select, summary, label[for] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  img {
+    max-width: 100%;
+  }
+  input, select, textarea {
+    font-size: 16px; /* prevents iOS zoom */
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .container-luxe {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+  @media (min-width: 768px) {
+    .container-luxe { padding-inline: 2rem; }
+  }
+  @media (min-width: 1280px) {
+    .container-luxe { padding-inline: 3rem; }
+  }
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.45s var(--ease-luxe);
+  }
+  .link-underline:hover, .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+  .skeleton {
+    background: linear-gradient(90deg, #ece6dd 0px, #f5f1eb 120px, #ece6dd 240px);
+    background-size: 800px 100%;
+    animation: var(--animate-shimmer);
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

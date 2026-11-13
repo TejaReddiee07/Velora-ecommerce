@@ -1,0 +1,60 @@
+{
+  "name": "velora-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VELORA commerce API \u2014 Express, MongoDB (GridFS), Stripe, Socket.IO",
+  "type": "module",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "scripts": {
+    "dev": "tsx watch --clear-screen=false src/index.ts",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "seed": "tsx src/seed/run.ts",
+    "seed:reset": "tsx src/seed/run.ts --reset",
+    "db:local": "tsx scripts/local-mongo.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "showroom:enable": "tsx scripts/enable-showroom.ts",
+    "restock:all": "tsx scripts/restock-all.ts"
+  },
+  "dependencies": {
+    "argon2": "^0.45.2",
+    "bullmq": "^6.7.6",
+    "compression": "^1.8.2",
+    "cookie": "^2.0.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.4",
+    "helmet": "^8.3.0",
+    "ioredis": "^6.0.0",
+    "mongoose": "^9.12.1",
+    "multer": "^2.5.0",
+    "nodemailer": "^10.5.0",
+    "sharp": "^0.35.5",
+    "socket.io": "^4.8.4",
+    "stripe": "^23.1.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.3.0",
+    "@types/node": "^26.6.6",
+    "@types/nodemailer": "^8.0.2",
+    "@types/supertest": "^7.2.1",
+    "mongodb-memory-server": "^11.3.0",
+    "socket.io-client": "^4.8.4",
+    "supertest": "^7.3.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

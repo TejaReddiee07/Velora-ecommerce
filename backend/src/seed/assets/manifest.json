@@ -1,0 +1,799 @@
+{
+  "source": "Unsplash (Unsplash License)",
+  "products": {
+    "essential-cotton-tee": [
+      {
+        "file": "products/essential-cotton-tee-1.jpg",
+        "photoId": "1521572163474-6864f9cf17ab",
+        "url": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F4F4F2",
+        "description": "Model wearing a plain white crew-neck T-shirt, torso crop"
+      },
+      {
+        "file": "products/essential-cotton-tee-2.jpg",
+        "photoId": "1586790170083-2f9ceadc732d",
+        "url": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F2F2EF",
+        "description": "Man wearing a plain white crew-neck T-shirt against a neutral wall"
+      }
+    ],
+    "heavyweight-boxy-tee": [
+      {
+        "file": "products/heavyweight-boxy-tee-1.jpg",
+        "photoId": "1571455786673-9d9d6c194f90",
+        "url": "https://images.unsplash.com/photo-1571455786673-9d9d6c194f90?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#161616",
+        "description": "Close crop of a plain black crew-neck T-shirt worn, dark background"
+      },
+      {
+        "file": "products/heavyweight-boxy-tee-2.jpg",
+        "photoId": "1618517351616-38fb9c5210c6",
+        "url": "https://images.unsplash.com/photo-1618517351616-38fb9c5210c6?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#1A1A1C",
+        "description": "Man wearing a plain black T-shirt outdoors, waist-up"
+      }
+    ],
+    "graphic-street-tee": [
+      {
+        "file": "products/graphic-street-tee-1.jpg",
+        "photoId": "1576566588028-4147f3842f27",
+        "url": "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Sand",
+        "colorHex": "#E3DCCF",
+        "description": "Sand/cream T-shirt with a large blue lucky-cat graphic print, studio flat shot"
+      },
+      {
+        "file": "products/graphic-street-tee-2.jpg",
+        "photoId": "1503341504253-dff4815485f1",
+        "url": "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#18181A",
+        "description": "Model in a black T-shirt with a white skeleton-hand graphic, full body"
+      }
+    ],
+    "oxford-button-down-shirt": [
+      {
+        "file": "products/oxford-button-down-shirt-1.jpg",
+        "photoId": "1604695573706-53170668f6a6",
+        "url": "https://images.unsplash.com/photo-1604695573706-53170668f6a6?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Light Blue",
+        "colorHex": "#B9CDE3",
+        "description": "Man wearing a light-blue button-up shirt, tucked into jeans"
+      },
+      {
+        "file": "products/oxford-button-down-shirt-2.jpg",
+        "photoId": "1602810316498-ab67cf68c8e1",
+        "url": "https://images.unsplash.com/photo-1602810316498-ab67cf68c8e1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F5F5F3",
+        "description": "Folded white dress shirt held up on a white marble board, studio"
+      }
+    ],
+    "relaxed-linen-shirt": [
+      {
+        "file": "products/relaxed-linen-shirt-1.jpg",
+        "photoId": "1558171813-4c088753af8f",
+        "url": "https://images.unsplash.com/photo-1558171813-4c088753af8f?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Light Blue",
+        "colorHex": "#BFD3E6",
+        "description": "Washed light-blue chambray button shirt draped over a red folding chair"
+      },
+      {
+        "file": "products/relaxed-linen-shirt-2.jpg",
+        "photoId": "1603252109303-2751441dd157",
+        "url": "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F3F3F0",
+        "description": "White button shirts on wooden hangers against a warm ochre wall"
+      }
+    ],
+    "pique-polo-shirt": [
+      {
+        "file": "products/pique-polo-shirt-1.jpg",
+        "photoId": "1586363104862-3a5e2ab60d99",
+        "url": "https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Coral",
+        "colorHex": "#F2765E",
+        "description": "Flat lay of four folded polo shirts (coral, mint green, slate blue, grey)"
+      }
+    ],
+    "selvedge-slim-jeans": [
+      {
+        "file": "products/selvedge-slim-jeans-1.jpg",
+        "photoId": "1624378439575-d8705ad7ae80",
+        "url": "https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Dark Indigo",
+        "colorHex": "#26303D",
+        "description": "Dark rinse jeans laid flat on white fabric, front view"
+      },
+      {
+        "file": "products/selvedge-slim-jeans-2.jpg",
+        "photoId": "1624378441864-6eda7eac51cb",
+        "url": "https://images.unsplash.com/photo-1624378441864-6eda7eac51cb?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Dark Indigo",
+        "colorHex": "#26303D",
+        "description": "Same dark rinse jeans laid flat, back view with leather patch"
+      }
+    ],
+    "wide-leg-jeans": [
+      {
+        "file": "products/wide-leg-jeans-1.jpg",
+        "photoId": "1598554747436-c9293d6a588f",
+        "url": "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Light Wash",
+        "colorHex": "#8FB0CF",
+        "description": "Woman in light-wash straight/wide-leg jeans and white top, studio"
+      },
+      {
+        "file": "products/wide-leg-jeans-2.jpg",
+        "photoId": "1602293589930-45aad59ba3ab",
+        "url": "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Light Wash",
+        "colorHex": "#9DB8D2",
+        "description": "Light-wash jeans hanging on a wooden hanger, detail of waistband"
+      }
+    ],
+    "tailored-wool-trousers": [
+      {
+        "file": "products/tailored-wool-trousers-1.jpg",
+        "photoId": "1517445312882-bc9910d016b7",
+        "url": "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Beige",
+        "colorHex": "#D8C7A8",
+        "description": "Woman in high-waisted pleated beige tailored trousers with a pale blouse"
+      },
+      {
+        "file": "products/tailored-wool-trousers-2.jpg",
+        "photoId": "1584865288642-42078afe6942",
+        "url": "https://images.unsplash.com/photo-1584865288642-42078afe6942?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#1C1C1E",
+        "description": "Man in slim black tailored trousers with white shirt, full length"
+      }
+    ],
+    "utility-cargo-pants": [
+      {
+        "file": "products/utility-cargo-pants-1.jpg",
+        "photoId": "1552902865-b72c031ac5ea",
+        "url": "https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Olive",
+        "colorHex": "#4F5642",
+        "description": "Woman wearing olive cargo trousers with thigh pocket and black crop top"
+      }
+    ],
+    "silk-slip-dress": [
+      {
+        "file": "products/silk-slip-dress-1.jpg",
+        "photoId": "1554141220-83411835a60b",
+        "url": "https://images.unsplash.com/photo-1554141220-83411835a60b?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Sage Grey",
+        "colorHex": "#A8AFA4",
+        "description": "Woman in a satin-look sage-grey slip dress with ruffled hem, outdoors"
+      },
+      {
+        "file": "products/silk-slip-dress-2.jpg",
+        "photoId": "1539008835657-9e8e9680c956",
+        "url": "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Powder Blue",
+        "colorHex": "#A9C4DE",
+        "description": "Woman in a flowing powder-blue satin wrap maxi slip dress on a beach"
+      }
+    ],
+    "floral-wrap-dress": [
+      {
+        "file": "products/floral-wrap-dress-1.jpg",
+        "photoId": "1572804013309-59a88b7e92f1",
+        "url": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Red Floral",
+        "colorHex": "#C8202E",
+        "description": "Woman in a red floral-print midi dress against an ochre backdrop"
+      },
+      {
+        "file": "products/floral-wrap-dress-2.jpg",
+        "photoId": "1496747611176-843222e1e57c",
+        "url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White Floral",
+        "colorHex": "#F1EDE6",
+        "description": "White wrap dress with red floral print worn by the sea, landscape"
+      }
+    ],
+    "leather-biker-jacket": [
+      {
+        "file": "products/leather-biker-jacket-1.jpg",
+        "photoId": "1551028719-00167b16eac5",
+        "url": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#141414",
+        "description": "Black leather biker jacket on a hanger against white, studio"
+      },
+      {
+        "file": "products/leather-biker-jacket-2.jpg",
+        "photoId": "1521223890158-f9f7c3d5d504",
+        "url": "https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#18181A",
+        "description": "Close crop of a man wearing a black leather biker jacket over a black tee"
+      }
+    ],
+    "denim-trucker-jacket": [
+      {
+        "file": "products/denim-trucker-jacket-1.jpg",
+        "photoId": "1611312449408-fcece27cdbb7",
+        "url": "https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Raw Indigo",
+        "colorHex": "#2B3D63",
+        "description": "Raw indigo denim trucker jacket with corduroy collar on a hanger, black background"
+      },
+      {
+        "file": "products/denim-trucker-jacket-2.jpg",
+        "photoId": "1495105787522-5334e3ffa0ef",
+        "url": "https://images.unsplash.com/photo-1495105787522-5334e3ffa0ef?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Light Wash",
+        "colorHex": "#A9C6DC",
+        "description": "Close crop of a light-wash denim jacket worn over a white tee (small pin badge)"
+      }
+    ],
+    "camel-wool-overcoat": [
+      {
+        "file": "products/camel-wool-overcoat-1.jpg",
+        "photoId": "1539533113208-f6df8cc8b543",
+        "url": "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Camel",
+        "colorHex": "#B48A5E",
+        "description": "Woman wearing a long belted camel coat against a stone wall"
+      },
+      {
+        "file": "products/camel-wool-overcoat-2.jpg",
+        "photoId": "1539533018447-63fcce2678e3",
+        "url": "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Camel",
+        "colorHex": "#B98E5D",
+        "description": "Woman in a long camel wrap coat on stone steps"
+      }
+    ],
+    "quilted-puffer-jacket": [
+      {
+        "file": "products/quilted-puffer-jacket-1.jpg",
+        "photoId": "1548624313-0396c75e4b1a",
+        "url": "https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Yellow",
+        "colorHex": "#E9B21C",
+        "description": "Woman wearing a glossy yellow quilted puffer jacket"
+      },
+      {
+        "file": "products/quilted-puffer-jacket-2.jpg",
+        "photoId": "1578948856697-db91d246b7b1",
+        "url": "https://images.unsplash.com/photo-1578948856697-db91d246b7b1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Forest Green",
+        "colorHex": "#22382D",
+        "description": "Man in a dark green quilted puffer jacket in Paris"
+      }
+    ],
+    "cloud-fleece-hoodie": [
+      {
+        "file": "products/cloud-fleece-hoodie-1.jpg",
+        "photoId": "1556821840-3a63f95609a7",
+        "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Heather Grey",
+        "colorHex": "#9EA3A8",
+        "description": "Grey pullover hoodie worn, back view, hood up"
+      },
+      {
+        "file": "products/cloud-fleece-hoodie-2.jpg",
+        "photoId": "1564557287817-3785e38ec1f5",
+        "url": "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Oatmeal",
+        "colorHex": "#CDBFB2",
+        "description": "Man in a light oatmeal pullover hoodie, front view"
+      }
+    ],
+    "oversized-street-hoodie": [
+      {
+        "file": "products/oversized-street-hoodie-1.jpg",
+        "photoId": "1579572331145-5e53b299c64e",
+        "url": "https://images.unsplash.com/photo-1579572331145-5e53b299c64e?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#14191C",
+        "description": "Person in a black hoodie with hood up, moody dark-teal studio light"
+      }
+    ],
+    "merino-crew-sweater": [
+      {
+        "file": "products/merino-crew-sweater-1.jpg",
+        "photoId": "1506634572416-48cdfe530110",
+        "url": "https://images.unsplash.com/photo-1506634572416-48cdfe530110?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Burgundy",
+        "colorHex": "#8A1F3B",
+        "description": "Man wearing a burgundy crew-neck knit sweater, studio"
+      },
+      {
+        "file": "products/merino-crew-sweater-2.jpg",
+        "photoId": "1624623278313-a930126a11c3",
+        "url": "https://images.unsplash.com/photo-1624623278313-a930126a11c3?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Cream",
+        "colorHex": "#E8DFCC",
+        "description": "Close-up of folded cream knit sweaters showing the knit texture"
+      }
+    ],
+    "navy-tailored-suit": [
+      {
+        "file": "products/navy-tailored-suit-1.jpg",
+        "photoId": "1507679799987-c73779587ccf",
+        "url": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Navy",
+        "colorHex": "#1E2A44",
+        "description": "Man buttoning a navy suit jacket with striped tie, torso crop"
+      },
+      {
+        "file": "products/navy-tailored-suit-2.jpg",
+        "photoId": "1617137984095-74e4e5e3613f",
+        "url": "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Navy",
+        "colorHex": "#22346A",
+        "description": "Man in a navy two-piece suit with white shirt, full length"
+      }
+    ],
+    "sculpted-blazer": [
+      {
+        "file": "products/sculpted-blazer-1.jpg",
+        "photoId": "1571513722275-4b41940f54b8",
+        "url": "https://images.unsplash.com/photo-1571513722275-4b41940f54b8?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Ivory",
+        "colorHex": "#EFE8DA",
+        "description": "Woman in an ivory tailored blazer suit with a red rose, studio"
+      },
+      {
+        "file": "products/sculpted-blazer-2.jpg",
+        "photoId": "1584273143981-41c073dfe8f8",
+        "url": "https://images.unsplash.com/photo-1584273143981-41c073dfe8f8?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#1B1C22",
+        "description": "Woman in a fitted black blazer and trousers on a city street, full length"
+      }
+    ],
+    "aero-performance-tee": [
+      {
+        "file": "products/aero-performance-tee-1.jpg",
+        "photoId": "1594737625785-a6cbdabd333c",
+        "url": "https://images.unsplash.com/photo-1594737625785-a6cbdabd333c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Charcoal",
+        "colorHex": "#2B2F33",
+        "description": "Man in a dark athletic T-shirt doing push-ups on dumbbells"
+      }
+    ],
+    "contour-training-leggings": [
+      {
+        "file": "products/contour-training-leggings-1.jpg",
+        "photoId": "1538805060514-97d9cc17730c",
+        "url": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Teal",
+        "colorHex": "#0F6E7A",
+        "description": "Woman in high-waisted teal leggings stepping up stairs"
+      },
+      {
+        "file": "products/contour-training-leggings-2.jpg",
+        "photoId": "1606902965551-dce093cda6e7",
+        "url": "https://images.unsplash.com/photo-1606902965551-dce093cda6e7?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Mauve",
+        "colorHex": "#9A5A62",
+        "description": "Woman in a mauve sports bra and matching leggings set"
+      }
+    ],
+    "velocity-track-jacket": [
+      {
+        "file": "products/velocity-track-jacket-1.jpg",
+        "photoId": "1548883354-94bcfe321cbb",
+        "url": "https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Olive",
+        "colorHex": "#5A5A3E",
+        "description": "Man in an olive hooded lightweight shell / windbreaker jacket"
+      }
+    ],
+    "court-classic-sneaker": [
+      {
+        "file": "products/court-classic-sneaker-1.jpg",
+        "photoId": "1544441892-794166f1e3be",
+        "url": "https://images.unsplash.com/photo-1544441892-794166f1e3be?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F1F1EF",
+        "description": "Pair of white leather low-top court sneakers on dark grey"
+      },
+      {
+        "file": "products/court-classic-sneaker-2.jpg",
+        "photoId": "1603808033192-082d6919d3e1",
+        "url": "https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F0EDE6",
+        "description": "White leather sneaker with beige suede toe on an orange backdrop"
+      }
+    ],
+    "retro-runner-sneaker": [
+      {
+        "file": "products/retro-runner-sneaker-1.jpg",
+        "photoId": "1560072810-1cffb09faf0f",
+        "url": "https://images.unsplash.com/photo-1560072810-1cffb09faf0f?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Royal Blue",
+        "colorHex": "#2F5BD3",
+        "description": "Blue suede retro running sneaker on a rope net (brand stripes visible)"
+      },
+      {
+        "file": "products/retro-runner-sneaker-2.jpg",
+        "photoId": "1465453869711-7e174808ace9",
+        "url": "https://images.unsplash.com/photo-1465453869711-7e174808ace9?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Lavender",
+        "colorHex": "#D9D9EE",
+        "description": "Lavender retro runner with peach side logo on paving (brand N visible)"
+      }
+    ],
+    "canvas-high-top": [
+      {
+        "file": "products/canvas-high-top-1.jpg",
+        "photoId": "1607522370275-f14206abe5d3",
+        "url": "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Red",
+        "colorHex": "#B5172E",
+        "description": "Red canvas high-top sneaker floating on a sky-blue background"
+      },
+      {
+        "file": "products/canvas-high-top-2.jpg",
+        "photoId": "1494496195158-c3becb4f2475",
+        "url": "https://images.unsplash.com/photo-1494496195158-c3becb4f2475?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Charcoal",
+        "colorHex": "#4A4A4C",
+        "description": "Pair of charcoal canvas high-tops lying on a wooden floor"
+      }
+    ],
+    "platform-sneaker": [
+      {
+        "file": "products/platform-sneaker-1.jpg",
+        "photoId": "1560769629-975ec94e6a86",
+        "url": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Cream Multi",
+        "colorHex": "#EDE6DA",
+        "description": "Pair of chunky multicolour sneakers posed on white blocks"
+      },
+      {
+        "file": "products/platform-sneaker-2.jpg",
+        "photoId": "1608667508764-33cf0726b13a",
+        "url": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Blush",
+        "colorHex": "#E9C3B5",
+        "description": "Chunky blush/peach platform sneaker on white, side profile"
+      }
+    ],
+    "velocity-running-shoe": [
+      {
+        "file": "products/velocity-running-shoe-1.jpg",
+        "photoId": "1491553895911-0055eca6402d",
+        "url": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#2A2B2D",
+        "description": "Black performance running shoe floating against white"
+      },
+      {
+        "file": "products/velocity-running-shoe-2.jpg",
+        "photoId": "1597892657493-6847b9640bac",
+        "url": "https://images.unsplash.com/photo-1597892657493-6847b9640bac?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Grey",
+        "colorHex": "#8E959C",
+        "description": "Runner mid-stride on asphalt wearing grey running shoes"
+      }
+    ],
+    "suede-penny-loafer": [
+      {
+        "file": "products/suede-penny-loafer-1.jpg",
+        "photoId": "1616406432452-07bc5938759d",
+        "url": "https://images.unsplash.com/photo-1616406432452-07bc5938759d?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Cognac",
+        "colorHex": "#8E4A24",
+        "description": "Pair of cognac leather loafers (horsebit detail) on navy fabric"
+      }
+    ],
+    "canvas-slip-on": [
+      {
+        "file": "products/canvas-slip-on-1.jpg",
+        "photoId": "1525966222134-fcfa99b8ae77",
+        "url": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Burgundy",
+        "colorHex": "#6E1E2A",
+        "description": "Burgundy low-top canvas/suede skate shoe floating on mustard yellow"
+      }
+    ],
+    "brogue-derby": [
+      {
+        "file": "products/brogue-derby-1.jpg",
+        "photoId": "1614252235316-8c857d38b5f4",
+        "url": "https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Tan",
+        "colorHex": "#9A5A2E",
+        "description": "Close-up of tan leather derby shoes with perforated brogue detailing"
+      },
+      {
+        "file": "products/brogue-derby-2.jpg",
+        "photoId": "1449505278894-297fdb3edbc1",
+        "url": "https://images.unsplash.com/photo-1449505278894-297fdb3edbc1?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Chestnut",
+        "colorHex": "#8A3E22",
+        "description": "Pair of chestnut leather derby shoes on a wooden floor"
+      }
+    ],
+    "pointed-stiletto-pump": [
+      {
+        "file": "products/pointed-stiletto-pump-1.jpg",
+        "photoId": "1596703263926-eb0762ee17e4",
+        "url": "https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#151515",
+        "description": "Hand holding a black pointed-toe stiletto pump against white"
+      },
+      {
+        "file": "products/pointed-stiletto-pump-2.jpg",
+        "photoId": "1535043934128-cf0b28d52f95",
+        "url": "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Cream",
+        "colorHex": "#EAE0D2",
+        "description": "Pair of cream pointed-toe stiletto pumps on a dark wood surface"
+      }
+    ],
+    "leather-combat-boot": [
+      {
+        "file": "products/leather-combat-boot-1.jpg",
+        "photoId": "1608256246200-53e635b5b65f",
+        "url": "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Dark Brown",
+        "colorHex": "#3B2620",
+        "description": "Pair of dark brown leather lace-up boots, dramatic studio light"
+      },
+      {
+        "file": "products/leather-combat-boot-2.jpg",
+        "photoId": "1520639888713-7851133b1ed0",
+        "url": "https://images.unsplash.com/photo-1520639888713-7851133b1ed0?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Tan Brown",
+        "colorHex": "#8A4F2A",
+        "description": "Man lacing brown leather lace-up work boots on asphalt"
+      }
+    ],
+    "heeled-ankle-boot": [
+      {
+        "file": "products/heeled-ankle-boot-1.jpg",
+        "photoId": "1621996659490-3275b4d0d951",
+        "url": "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Blush",
+        "colorHex": "#E8C2AE",
+        "description": "Blush patent pointed-toe stiletto ankle boots on white"
+      },
+      {
+        "file": "products/heeled-ankle-boot-2.jpg",
+        "photoId": "1494955464529-790512c65305",
+        "url": "https://images.unsplash.com/photo-1494955464529-790512c65305?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#1C1C1C",
+        "description": "Woman wearing black leather heeled ankle boots with quilted panel"
+      }
+    ],
+    "leather-slide-sandal": [
+      {
+        "file": "products/leather-slide-sandal-1.jpg",
+        "photoId": "1603487742131-4160ec999306",
+        "url": "https://images.unsplash.com/photo-1603487742131-4160ec999306?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Taupe",
+        "colorHex": "#BDB3A5",
+        "description": "Pair of two-strap taupe slide sandals on white faux fur (brand text on footbed/strap)"
+      }
+    ],
+    "strappy-heeled-sandal": [
+      {
+        "file": "products/strappy-heeled-sandal-1.jpg",
+        "photoId": "1590099033615-be195f8d575c",
+        "url": "https://images.unsplash.com/photo-1590099033615-be195f8d575c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Nude",
+        "colorHex": "#E3C3AE",
+        "description": "Pair of nude strappy heeled sandals on an orange surface"
+      },
+      {
+        "file": "products/strappy-heeled-sandal-2.jpg",
+        "photoId": "1549439602-43ebca2327af",
+        "url": "https://images.unsplash.com/photo-1549439602-43ebca2327af?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#161616",
+        "description": "Black strappy ankle-strap heeled sandals on white fur with earrings"
+      }
+    ],
+    "structured-leather-tote": [
+      {
+        "file": "products/structured-leather-tote-1.jpg",
+        "photoId": "1614179689702-355944cd0918",
+        "url": "https://images.unsplash.com/photo-1614179689702-355944cd0918?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#171717",
+        "description": "Black structured leather tote bag on white bedding, studio"
+      },
+      {
+        "file": "products/structured-leather-tote-2.jpg",
+        "photoId": "1594223274512-ad4803739b7c",
+        "url": "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Teal",
+        "colorHex": "#0E6A72",
+        "description": "Teal leather top-handle bag with gold clasp, overhead"
+      }
+    ],
+    "minimal-leather-watch": [
+      {
+        "file": "products/minimal-leather-watch-1.jpg",
+        "photoId": "1524592094714-0f0654e20314",
+        "url": "https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Taupe",
+        "colorHex": "#8F857A",
+        "description": "Hand holding a minimal white-dial watch with a taupe leather strap"
+      },
+      {
+        "file": "products/minimal-leather-watch-2.jpg",
+        "photoId": "1542496658-e33a6d0d50f6",
+        "url": "https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Brown",
+        "colorHex": "#4E3324",
+        "description": "Chronograph watch with brown leather strap on a light grey background"
+      }
+    ],
+    "cashmere-scarf": [
+      {
+        "file": "products/cashmere-scarf-1.jpg",
+        "photoId": "1609803384069-19f3e5a70e75",
+        "url": "https://images.unsplash.com/photo-1609803384069-19f3e5a70e75?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Berry Stripe",
+        "colorHex": "#7A3E52",
+        "description": "Fringed multistripe scarf (berry, grey, black) loosely coiled on dark wood"
+      },
+      {
+        "file": "products/cashmere-scarf-2.jpg",
+        "photoId": "1610384104075-e05c8cf200c3",
+        "url": "https://images.unsplash.com/photo-1610384104075-e05c8cf200c3?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Grey",
+        "colorHex": "#8C8C88",
+        "description": "Man wearing a chunky grey knit scarf with beanie and sunglasses"
+      }
+    ],
+    "classic-leather-belt": [
+      {
+        "file": "products/classic-leather-belt-1.jpg",
+        "photoId": "1624222247344-550fb60583dc",
+        "url": "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Tan",
+        "colorHex": "#9A5B34",
+        "description": "Tan textured leather belt with silver buckle, close-up"
+      }
+    ],
+    "acetate-sunglasses": [
+      {
+        "file": "products/acetate-sunglasses-1.jpg",
+        "photoId": "1584036553516-bf83210aa16c",
+        "url": "https://images.unsplash.com/photo-1584036553516-bf83210aa16c?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Black",
+        "colorHex": "#1A1A1A",
+        "description": "Black browline sunglasses on a white background"
+      },
+      {
+        "file": "products/acetate-sunglasses-2.jpg",
+        "photoId": "1577803645773-f96470509666",
+        "url": "https://images.unsplash.com/photo-1577803645773-f96470509666?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Crystal",
+        "colorHex": "#D9D2C4",
+        "description": "Clear crystal-frame sunglasses with brown lenses on a sunny deck"
+      }
+    ],
+    "signature-cap": [
+      {
+        "file": "products/signature-cap-1.jpg",
+        "photoId": "1521369909029-2afed882baee",
+        "url": "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=1600&q=80&fm=jpg&fit=max",
+        "color": "Washed Charcoal",
+        "colorHex": "#55595E",
+        "description": "Washed charcoal baseball cap on white (tonal embroidered logo)"
+      },
+      {
+        "file": "products/signature-cap-2.jpg",
+        "photoId": "1588850561407-ed78c282e89b",
+        "url": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=1600&q=80&fm=jpg&fit=max",
+        "color": "White",
+        "colorHex": "#F2F2F2",
+        "description": "White trucker-style cap on a light grey background"
+      }
+    ],
+    "amethyst-lace-gown": [
+      {
+        "file": "products/amethyst-lace-gown-1.jpg",
+        "photoId": "1551803091-e20673f15770",
+        "url": "https://images.unsplash.com/photo-1551803091-e20673f15770",
+        "color": "Amethyst",
+        "colorHex": "#3B2C6E",
+        "description": "Model wearing a long-sleeve violet lace gown with waist cut-outs"
+      }
+    ],
+    "summit-hiking-boot": [
+      {
+        "file": "products/summit-hiking-boot-1.jpg",
+        "photoId": "1520219306100-ec4afeeefe58",
+        "url": "https://images.unsplash.com/photo-1520219306100-ec4afeeefe58",
+        "color": "Taupe",
+        "colorHex": "#7C6F5C",
+        "description": "Pair of worn leather hiking boots on a rock with mountains behind"
+      }
+    ],
+    "suede-zip-ankle-boot": [
+      {
+        "file": "products/suede-zip-ankle-boot-1.jpg",
+        "photoId": "1605733160314-4fc7dac4bb16",
+        "url": "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16",
+        "color": "Tan",
+        "colorHex": "#A9814C",
+        "description": "Pair of tan suede ankle boots with side zip on a white background"
+      }
+    ]
+  },
+  "editorial": {
+    "hero-1": {
+      "file": "editorial/hero-1.jpg",
+      "photoId": "1558769132-cb1aea458c5e",
+      "url": "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Neutral knitwear on a rail beside dried pampas grass, soft minimal light",
+      "orientation": "landscape"
+    },
+    "hero-2": {
+      "file": "editorial/hero-2.jpg",
+      "photoId": "1612731486606-2614b4d74921",
+      "url": "https://images.unsplash.com/photo-1612731486606-2614b4d74921?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Model in a black blazer with pearls posing against a warm orange backdrop",
+      "orientation": "landscape"
+    },
+    "category-men": {
+      "file": "editorial/category-men.jpg",
+      "photoId": "1505022610485-0249ba5b3675",
+      "url": "https://images.unsplash.com/photo-1505022610485-0249ba5b3675?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Man in a tweed blazer, scarf and denim shirt with a leather backpack strap",
+      "orientation": "landscape"
+    },
+    "category-women": {
+      "file": "editorial/category-women.jpg",
+      "photoId": "1485968579580-b6d095142e6e",
+      "url": "https://images.unsplash.com/photo-1485968579580-b6d095142e6e?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Woman in a dark plaid coat carrying a studded burgundy bag on a city street",
+      "orientation": "portrait"
+    },
+    "category-footwear": {
+      "file": "editorial/category-footwear.jpg",
+      "photoId": "1560343090-f0409e92791a",
+      "url": "https://images.unsplash.com/photo-1560343090-f0409e92791a?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Green suede brogue on a pastel pedestal with peaches, still life",
+      "orientation": "portrait"
+    },
+    "category-accessories": {
+      "file": "editorial/category-accessories.jpg",
+      "photoId": "1492707892479-7bc8d5a4ee93",
+      "url": "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Flat lay of quilted bag, watch, sunglasses, rings and lipstick on white",
+      "orientation": "portrait"
+    },
+    "campaign": {
+      "file": "editorial/campaign.jpg",
+      "photoId": "1483985988355-763728e1935b",
+      "url": "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Woman in burgundy coat and sunglasses holding shopping bags",
+      "orientation": "landscape"
+    },
+    "boutique": {
+      "file": "editorial/boutique.jpg",
+      "photoId": "1441984904996-e0b6ba687e04",
+      "url": "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&q=80&fm=jpg&fit=max",
+      "description": "Boutique interior with clothing rails and pendant lamps",
+      "orientation": "landscape"
+    }
+  },
+  "missing": [
+    "cap-toe-oxford"
+  ],
+  "notes": "noir-evening-gown, trail-runner and suede-chelsea-boot were replaced by amethyst-lace-gown, summit-hiking-boot and suede-zip-ankle-boot to match available photos."
+}
