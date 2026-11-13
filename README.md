@@ -6,8 +6,10 @@ A production-oriented e-commerce platform for a fashion house selling clothing, 
 
 | Storefront | Owner portal |
 | --- | --- |
-| ![Footwear 3D carousel](docs/screenshots/footwear-3d-carousel.png) | ![Dashboard](docs/screenshots/admin-dashboard.png) |
-| ![Product page](docs/screenshots/product-detail.png) | ![Product editor](docs/screenshots/admin-product-editor.png) |
+| ![Footwear 3D carousel](docs/screenshots/footwear-3d-carousel.png) | [![Dashboard](docs/screenshots/admin-dashboard-top.png)](docs/screenshots/admin-dashboard.png) |
+| ![Product page](docs/screenshots/product-detail.png) | [![Product editor](docs/screenshots/admin-product-editor-top.png)](docs/screenshots/admin-product-editor.png) |
+
+<sub>Click an owner-portal screenshot to see the full page.</sub>
 
 ---
 
