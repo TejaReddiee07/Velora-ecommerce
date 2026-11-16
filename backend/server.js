@@ -9,7 +9,7 @@
 import express from 'express'; // lets Vercel's Express preset recognise this entry
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 let api = null;
 let reason = null;
@@ -24,9 +24,17 @@ const record = (kind) => (err) => {
 process.on('uncaughtException', record('uncaught exception'));
 process.on('unhandledRejection', record('unhandled rejection'));
 
-/** Loads the compiled API on first use; a failure is reported, not fatal. */
+/**
+ * Loads the compiled API on first use; a failure is reported, not fatal.
+ * The path is built at runtime on purpose: a literal './dist/serverless.js' lets
+ * Vercel's bundler pull the whole API into this file and run it at load time,
+ * where any error (a missing setting, a native module) kills the function before
+ * it can report anything.
+ */
 function load() {
-  loading ??= import('./dist/serverless.js').then(
+  loading ??= Promise.resolve()
+    .then(() => import(/* @vite-ignore */ /* webpackIgnore: true */ pathToFileURL(path.join(here(), 'dist', 'serverless.js')).href))
+    .then(
     (mod) => {
       api = mod.default;
     },
@@ -60,6 +68,7 @@ app.get('/api/__diag', (_req, res) => {
     cwd: process.cwd(),
     entryDir: dir,
     distBuilt: fs.existsSync(path.join(dir, 'dist', 'serverless.js')),
+    packagesShipped: ['express', 'mongoose', 'argon2', 'sharp'].map((p) => `${p}:${fs.existsSync(path.join(dir, 'node_modules', p))}`).join(' '),
     vercelMarker: process.env.VERCEL ?? null,
     settingsPresent: Object.fromEntries(names.map((k) => [k, Boolean(process.env[k]?.trim())])),
     apiLoaded: Boolean(api),
