@@ -249,9 +249,9 @@ export function ProductView({ slug, initial }: { slug: string; initial: Payload 
               </fieldset>
 
               {/* Actions */}
-              <div className="mt-6 flex items-center gap-3">
+              <div className="mt-6 flex items-center gap-3 max-[380px]:gap-2">
                 <QtyStepper value={qty} max={maxQty} onChange={setQty} disabled={!selected || selected.available <= 0} />
-                <Button ref={addBtn} size="lg" className="flex-1" onClick={() => doAdd(false)} loading={add.isPending} disabled={!product.inStock}>
+                <Button ref={addBtn} size="lg" className="flex-1 max-[380px]:px-4 max-[380px]:tracking-[0.14em]" onClick={() => doAdd(false)} loading={add.isPending} disabled={!product.inStock}>
                   {product.inStock ? 'Add to bag' : 'Sold out'}
                 </Button>
                 <button

@@ -121,7 +121,7 @@ export function Header({ initialSettings }: { initialSettings?: PublicSettings |
     setMenuOpen(false);
   }, [pathname, setMenuOpen]);
 
-  const transparent = isHome && !scrolled && !open;
+  const transparent = isHome && !scrolled && !open && !menuOpen;
   const tone = transparent ? 'light' : 'dark';
   const count = cart?.itemCount ?? 0;
   const announcement = settings?.announcement;

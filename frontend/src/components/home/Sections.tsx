@@ -153,7 +153,7 @@ export function EditRail({ initial }: { initial?: Card[] | null }) {
           <p className="hidden max-w-sm text-ivory/70 md:block">Signature pieces chosen by our studio — the foundations of a considered wardrobe.</p>
         </div>
       </div>
-      <div ref={track} className="flex gap-6 overflow-x-auto px-4 pb-4 scrollbar-none max-lg:snap-x max-lg:snap-mandatory md:px-8 lg:overflow-visible lg:pl-12 lg:will-change-transform">
+      <div ref={track} className="flex gap-6 overflow-x-auto px-4 pb-4 scrollbar-none max-lg:snap-x max-lg:snap-mandatory max-lg:scroll-pl-4 md:px-8 md:max-lg:scroll-pl-8 lg:overflow-visible lg:pl-12 lg:will-change-transform">
         {(data ?? Array.from({ length: 5 })).map((p, i) =>
           p ? (
             <div key={(p as Card)._id} className="w-[72vw] shrink-0 snap-start sm:w-[44vw] lg:w-[23vw] [&_.text-muted]:text-ivory/60 [&_a]:text-ivory [&_p]:text-ivory">
@@ -207,7 +207,7 @@ export function FootwearShowcase({ initial }: { initial?: Card[] | null }) {
   const [active, setActive] = useState(0);
   const items = (data ?? []).filter((p) => p.images[0]).slice(0, 8);
   const cats = (categories ?? []).filter((c) => c.department === 'footwear' && c.productCount > 0);
-  const use3D = webgl && !reduced && !mobile && items.length >= 4;
+  const use3D = webgl && !reduced && items.length >= 4;
 
   return (
     <section className="relative bg-ink py-24 text-ivory md:py-32" aria-labelledby="footwear-heading">
@@ -235,9 +235,9 @@ export function FootwearShowcase({ initial }: { initial?: Card[] | null }) {
       </div>
 
       {use3D ? (
-        <div ref={ref} className="relative h-[620px] w-full cursor-grab active:cursor-grabbing">
-          {near && <FootwearCarousel items={items.map((p) => ({ id: p._id, slug: p.slug, name: p.name, image: imageUrl(p.images[0].md) }))} active={visible} mobile={false} onOpen={(slug) => router.push(`/product/${slug}`)} />}
-          <p className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 text-[11px] uppercase tracking-[0.24em] text-ivory/60">Drag to rotate · click a pair to open</p>
+        <div ref={ref} className="relative h-[460px] w-full cursor-grab active:cursor-grabbing md:h-[620px]">
+          {near && <FootwearCarousel items={items.map((p) => ({ id: p._id, slug: p.slug, name: p.name, image: imageUrl(p.images[0].md) }))} active={visible} mobile={mobile} onOpen={(slug) => router.push(`/product/${slug}`)} />}
+          <p className="pointer-events-none absolute bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] uppercase tracking-[0.22em] text-ivory/60 md:text-[11px] md:tracking-[0.24em]">{mobile ? 'Swipe to rotate · tap a pair to open' : 'Drag to rotate · click a pair to open'}</p>
         </div>
       ) : (
         <div className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 scrollbar-none md:px-8" onScroll={(e) => setActive(Math.round(e.currentTarget.scrollLeft / 300))}>
@@ -287,9 +287,9 @@ export function BestSellers({ initial }: { initial?: Card[] | null }) {
             Best sellers
           </h2>
         </div>
-        <div role="tablist" aria-label="Best seller department" className="flex gap-1 border-b border-line">
+        <div role="tablist" aria-label="Best seller department" className="flex gap-1 border-b border-line scrollbar-none max-sm:overflow-x-auto max-sm:pb-px">
           {tabs.map((t) => (
-            <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={cn('relative h-11 px-4 text-[12px] uppercase tracking-[0.18em] transition-colors', tab === t ? 'text-ink' : 'text-muted hover:text-ink')}>
+            <button key={t} role="tab" aria-selected={tab === t} onClick={() => setTab(t)} className={cn('relative h-11 shrink-0 px-2 text-[11px] uppercase tracking-[0.12em] transition-colors sm:shrink sm:px-4 sm:text-[12px] sm:tracking-[0.18em]', tab === t ? 'text-ink' : 'text-muted hover:text-ink')}>
               {t}
               {tab === t && <motion.span layoutId="best-tab" className="absolute inset-x-2 -bottom-px h-px bg-ink" />}
             </button>
