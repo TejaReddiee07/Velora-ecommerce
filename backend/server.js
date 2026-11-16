@@ -3,20 +3,33 @@
 // below. This file must stay in the repository: dist/ is built, never committed,
 // so Vercel can only detect the Express service through a file that already exists.
 // Locally and in Docker the API starts from dist/index.js instead (`npm start`).
+//
+// No top-level `await` anywhere in the API: Vercel may load this file with
+// require(), which cannot load modules that use it (ERR_REQUIRE_ASYNC_MODULE).
 import express from 'express'; // lets Vercel's Express preset recognise this entry
 
-let app;
-try {
-  app = (await import('./dist/serverless.js')).default;
-} catch (err) {
-  // Instead of a bare FUNCTION_INVOCATION_FAILED, answer every request with the
-  // reason (e.g. a missing environment variable — names only, never values).
-  console.error('VELORA API failed to start:', err);
-  const reason = String(err?.message ?? err).split('\n').join(' ').slice(0, 400);
-  app = express();
-  app.use((_req, res) => {
+let api = null;
+let reason = null;
+const loading = import('./dist/serverless.js').then(
+  (mod) => {
+    api = mod.default;
+  },
+  (err) => {
+    // Instead of a bare FUNCTION_INVOCATION_FAILED, answer with the reason
+    // (e.g. a missing environment variable — names only, never values).
+    console.error('VELORA API failed to start:', err);
+    reason = String(err?.message ?? err).split('\n').join(' ').slice(0, 400);
+  },
+);
+
+const app = express();
+app.disable('x-powered-by');
+app.use((req, res, next) => {
+  if (api) return api(req, res, next);
+  loading.then(() => {
+    if (api) return api(req, res, next);
     res.status(503).json({ error: { code: 'API_START_FAILED', message: 'The store API could not start. Check the Vercel function logs.', reason } });
   });
-}
+});
 
 export default app;

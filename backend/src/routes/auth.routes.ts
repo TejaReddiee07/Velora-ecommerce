@@ -25,7 +25,9 @@ import { AppError, badRequest, conflict, notFound } from '../utils/errors.js';
 const router = Router();
 
 // A real argon2 hash so failed lookups take as long as wrong passwords.
-const DUMMY_HASH = await hashPassword(randomToken(16));
+// Made on first use (no top-level await: Vercel loads the API with require()).
+let dummyHash: Promise<string> | null = null;
+const DUMMY_HASH = () => (dummyHash ??= hashPassword(randomToken(16)));
 
 function publicUser(u: { _id: unknown; name: string; email: string; emailVerified: boolean; phone?: string; marketingOptIn?: boolean; createdAt?: Date }) {
   return {
@@ -77,7 +79,7 @@ router.post('/auth/login', authLimiter, validate({ body: z.object({ email, passw
   const admin = await Admin.findOne({ email: addr }).select('+passwordHash');
   const adminLocked = Boolean(admin?.lockedUntil && admin.lockedUntil > new Date());
   // Always run one hash check here so response time doesn't reveal which emails are staff accounts.
-  const adminOk = await verifyPassword(admin?.passwordHash ?? DUMMY_HASH, pw);
+  const adminOk = await verifyPassword(admin?.passwordHash ?? (await DUMMY_HASH()), pw);
   if (admin && adminOk && admin.status === 'active' && !adminLocked) {
     admin.failedLogins = 0;
     admin.lockedUntil = undefined;
@@ -93,7 +95,7 @@ router.post('/auth/login', authLimiter, validate({ body: z.object({ email, passw
   }
 
   const user = await User.findOne({ email: addr }).select('+passwordHash');
-  const ok = await verifyPassword(user?.passwordHash ?? DUMMY_HASH, pw);
+  const ok = await verifyPassword(user?.passwordHash ?? (await DUMMY_HASH()), pw);
   if (!user || !ok) {
     if (admin && admin.status === 'active') {
       if (adminLocked) throw new AppError(423, 'ACCOUNT_LOCKED', 'Too many failed attempts. This account is locked for 15 minutes.');
