@@ -10,6 +10,15 @@ import express from 'express'; // lets Vercel's Express preset recognise this en
 
 let api = null;
 let reason = null;
+
+// Keep the function alive and report errors that happen outside a request,
+// instead of Vercel showing a bare FUNCTION_INVOCATION_FAILED.
+const record = (kind) => (err) => {
+  console.error(`VELORA API ${kind}:`, err);
+  reason ??= `${kind}: ${String(err?.message ?? err).split('\n').join(' ').slice(0, 400)}`;
+};
+process.on('uncaughtException', record('uncaught exception'));
+process.on('unhandledRejection', record('unhandled rejection'));
 const loading = import('./dist/serverless.js').then(
   (mod) => {
     api = mod.default;
