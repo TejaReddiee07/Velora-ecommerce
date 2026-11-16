@@ -57,6 +57,8 @@ const parsed = schema.safeParse(process.env);
 if (!parsed.success) {
   const issues = parsed.error.issues.map((i) => `  - ${i.path.join('.')}: ${i.message}`).join('\n');
   console.error(`Invalid environment configuration:\n${issues}`);
+  // On Vercel, throw so the entry (backend/server.js) can report which setting is wrong.
+  if (process.env.VERCEL) throw new Error(`Invalid environment configuration: ${issues.replace(/\s*\n\s*/g, ' ').trim()}`);
   process.exit(1);
 }
 
