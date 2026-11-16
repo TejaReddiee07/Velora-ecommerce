@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { io, type Socket } from 'socket.io-client';
 import { toast } from 'sonner';
-import { API_URL, REALTIME_ENABLED } from '@/lib/config';
+import { API_URL } from '@/lib/config';
 import { useMe } from '@/lib/hooks';
 import type { ProductDetail } from '@/lib/types';
 
@@ -39,9 +39,6 @@ export function RealtimeBridge() {
   const { data: user } = useMe();
 
   useEffect(() => {
-    // Hosts without long-lived connections (Vercel) run with live updates off:
-    // data still refreshes on navigation and when the tab regains focus.
-    if (!REALTIME_ENABLED) return;
     if (!socket) {
       socket = io(API_URL, { withCredentials: true, transports: ['websocket', 'polling'], reconnectionDelayMax: 8000 });
     }

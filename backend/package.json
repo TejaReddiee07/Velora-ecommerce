@@ -2,11 +2,11 @@
   "name": "velora-api",
   "version": "1.0.0",
   "private": true,
-  "description": "VELORA commerce API — Express, MongoDB (GridFS), Stripe, Socket.IO",
+  "description": "VELORA commerce API \u2014 Express, MongoDB (GridFS), Stripe, Socket.IO",
   "type": "module",
   "main": "dist/index.js",
   "engines": {
-    "node": "24.x"
+    "node": ">=20.10"
   },
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/index.ts",
@@ -22,7 +22,6 @@
     "restock:all": "tsx scripts/restock-all.ts"
   },
   "dependencies": {
-    "@vercel/functions": "^3.11.3",
     "argon2": "^0.45.2",
     "bullmq": "^6.7.6",
     "compression": "^1.8.2",

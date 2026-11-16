@@ -11,9 +11,7 @@ import { email } from '../../utils/schemas.js';
 import { AppError } from '../../utils/errors.js';
 
 const router = Router();
-// Made on first use (no top-level await: Vercel loads the API with require()).
-let dummyHash: Promise<string> | null = null;
-const DUMMY_HASH = () => (dummyHash ??= hashPassword(randomToken(16)));
+const DUMMY_HASH = await hashPassword(randomToken(16));
 const MAX_FAILURES = 5;
 const LOCK_MS = 15 * 60_000;
 
@@ -22,7 +20,7 @@ router.post('/login', adminAuthLimiter, validate({ body: z.object({ email, passw
   if (admin?.lockedUntil && admin.lockedUntil > new Date()) {
     throw new AppError(423, 'ACCOUNT_LOCKED', 'Too many failed attempts. This account is locked for 15 minutes.');
   }
-  const ok = await verifyPassword(admin?.passwordHash ?? (await DUMMY_HASH()), req.body.password);
+  const ok = await verifyPassword(admin?.passwordHash ?? DUMMY_HASH, req.body.password);
   if (!admin || !ok || admin.status !== 'active') {
     if (admin) {
       admin.failedLogins += 1;

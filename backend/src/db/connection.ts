@@ -12,12 +12,11 @@ export function setTransactionsSupported(value: boolean) {
   transactionsSupported = value;
 }
 
-export async function connectDatabase(uri: string, opts: { maxPoolSize?: number } = {}) {
+export async function connectDatabase(uri: string) {
   mongoose.set('strictQuery', true);
   await mongoose.connect(uri, {
     serverSelectionTimeoutMS: 15000,
-    // Serverless hosts run many small instances, so they pass a smaller pool.
-    maxPoolSize: opts.maxPoolSize ?? 20,
+    maxPoolSize: 20,
   });
 
   const db = mongoose.connection.db;
