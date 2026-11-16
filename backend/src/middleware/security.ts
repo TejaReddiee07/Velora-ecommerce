@@ -1,9 +1,23 @@
 import type { NextFunction, Request, Response } from 'express';
-import rateLimit from 'express-rate-limit';
+import rateLimit, { ipKeyGenerator, type Options } from 'express-rate-limit';
 import { env } from '../config/env.js';
 import { AppError } from '../utils/errors.js';
 
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
+
+/**
+ * True when the browser origin is this very site (storefront and API served
+ * from one domain, as on Vercel — including custom domains and preview URLs).
+ * Browsers set Origin/Host themselves, so another site cannot fake this.
+ */
+function isSameSite(req: Request, origin: string) {
+  const host = (req.get('x-forwarded-host') ?? req.get('host') ?? '').split(',')[0].trim().toLowerCase();
+  try {
+    return Boolean(host) && new URL(origin).host.toLowerCase() === host;
+  } catch {
+    return false;
+  }
+}
 
 /**
  * CSRF defence for cookie-authenticated requests: state-changing requests that
@@ -18,13 +32,13 @@ export function originCheck(req: Request, _res: Response, next: NextFunction) {
     if (!referer) return next(); // non-browser client (no ambient browser cookies)
     try {
       const refOrigin = new URL(referer).origin;
-      if (env.corsOrigins.includes(refOrigin) || refOrigin === new URL(env.API_PUBLIC_URL).origin) return next();
+      if (env.corsOrigins.includes(refOrigin) || refOrigin === new URL(env.API_PUBLIC_URL).origin || isSameSite(req, refOrigin)) return next();
     } catch {
       /* fall through */
     }
     return next(new AppError(403, 'CSRF_REJECTED', 'Request origin not allowed.'));
   }
-  if (env.corsOrigins.includes(origin.replace(/\/$/, ''))) return next();
+  if (env.corsOrigins.includes(origin.replace(/\/$/, '')) || isSameSite(req, origin)) return next();
   return next(new AppError(403, 'CSRF_REJECTED', 'Request origin not allowed.'));
 }
 
@@ -51,6 +65,11 @@ const limiterMessage = (message: string) => ({
   error: { code: 'RATE_LIMITED', message },
 });
 
+// On Vercel every request reaches the API through Vercel's proxy, so the visitor's
+// own IP comes from the header Vercel sets (clients cannot override it).
+const vercelClientKey: Options['keyGenerator'] = (req) =>
+  ipKeyGenerator(String(req.headers['x-real-ip'] ?? req.headers['x-vercel-forwarded-for'] ?? req.ip ?? 'unknown').split(',')[0].trim());
+
 function makeLimiter(windowMs: number, limit: number, message: string) {
   return rateLimit({
     windowMs,
@@ -59,6 +78,7 @@ function makeLimiter(windowMs: number, limit: number, message: string) {
     legacyHeaders: false,
     skip: () => env.RATE_LIMIT_DISABLED,
     message: limiterMessage(message),
+    ...(env.onVercel ? { keyGenerator: vercelClientKey } : {}),
   });
 }
 

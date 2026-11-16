@@ -1,6 +1,7 @@
 import { env } from '../config/env.js';
 import { logger } from '../utils/logger.js';
 import { deliverEmail, type EmailMessage } from '../services/email.service.js';
+import { keepAlive } from '../utils/background.js';
 
 /**
  * Background work: emails and scheduled maintenance.
@@ -28,10 +29,17 @@ export async function queueEmail(message: EmailMessage) {
     await emailQueue.add('send', message, { attempts: 5, backoff: { type: 'exponential', delay: 5000 }, removeOnComplete: 500 });
     return;
   }
-  // Local mode: send asynchronously without blocking the request.
-  setImmediate(() => {
-    deliverEmail(message).catch((err) => logger.error(`Email to ${message.to} failed`, err));
-  });
+  // Local mode: send asynchronously without blocking the request
+  // (on Vercel the function is kept alive until the email has gone).
+  keepAlive(
+    new Promise<void>((resolve) => {
+      setImmediate(() => {
+        deliverEmail(message)
+          .catch((err) => logger.error(`Email to ${message.to} failed`, err))
+          .finally(resolve);
+      });
+    }),
+  );
 }
 
 async function runTask(name: string, task: Task) {

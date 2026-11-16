@@ -1,11 +1,11 @@
 import { cookies } from 'next/headers';
-import { API_INTERNAL_URL, CURRENCY_COOKIE } from './config';
+import { CURRENCY_COOKIE, apiInternalUrl } from './config';
 import { qs } from './api';
 
 /** Server-side fetch for SSR pages. Always fresh: the owner's changes must show immediately. */
 export async function serverApi<T>(path: string, query?: Record<string, string | number | boolean | undefined | null>): Promise<T | null> {
   try {
-    const res = await fetch(`${API_INTERNAL_URL}/api${path}${qs(query)}`, { cache: 'no-store', headers: { Accept: 'application/json' } });
+    const res = await fetch(`${apiInternalUrl()}/api${path}${qs(query)}`, { cache: 'no-store', headers: { Accept: 'application/json' } });
     if (!res.ok) return null;
     return (await res.json()) as T;
   } catch {

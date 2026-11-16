@@ -1,4 +1,4 @@
-import express, { Router } from 'express';
+import express, { Router, type RequestHandler } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import compression from 'compression';
@@ -20,10 +20,15 @@ import { queueMode } from './jobs/queue.js';
 import { supportsTransactions } from './db/connection.js';
 import { smtpActive } from './services/email.service.js';
 
-export function createApp() {
+/**
+ * @param opts.beforeRoutes  middleware that runs before every route — the Vercel
+ *   entry (src/serverless.ts) uses it to connect to MongoDB on a cold start.
+ */
+export function createApp(opts: { beforeRoutes?: RequestHandler[] } = {}) {
   const app = express();
   app.disable('x-powered-by');
   app.set('trust proxy', 1);
+  for (const handler of opts.beforeRoutes ?? []) app.use(handler);
 
   app.use(
     helmet({

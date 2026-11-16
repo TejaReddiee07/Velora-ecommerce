@@ -8,12 +8,13 @@ import { api, imageUrl } from '@/lib/api';
 import { cn } from '@/lib/format';
 import { errorMessage } from '@/lib/admin/hooks';
 import { uploadForm } from '@/lib/admin/upload';
+import { MAX_UPLOAD_MB, UPLOAD_REQUEST_MB } from '@/lib/config';
 import type { AdminProduct } from '@/lib/admin/types';
 import type { ImageRef } from '@/lib/types';
 import { ConfirmDialog, Panel } from './ui';
 
 const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif';
-const MAX_MB = 8;
+const MAX_MB = MAX_UPLOAD_MB;
 
 export function ImageManager({ product }: { product: AdminProduct }) {
   const qc = useQueryClient();
@@ -51,14 +52,28 @@ export function ImageManager({ product }: { product: AdminProduct }) {
       toast.error('A product can have up to 12 images.');
       return;
     }
-    const form = new FormData();
-    files.forEach((f) => form.append('images', f));
-    if (uploadColor) form.append('color', uploadColor);
-    form.append('alt', product.name);
+    // Group files so no single request exceeds the host's body limit (Vercel: 4.5 MB).
+    const limit = UPLOAD_REQUEST_MB * 1024 * 1024;
+    const batches: File[][] = [];
+    for (const f of files) {
+      const last = batches[batches.length - 1];
+      if (last && last.reduce((n, x) => n + x.size, 0) + f.size <= limit) last.push(f);
+      else batches.push([f]);
+    }
     setProgress(0);
     try {
-      const res = await uploadForm<{ product: AdminProduct }>(`/admin/products/${product._id}/images`, form, { onProgress: setProgress });
-      apply(res.product);
+      let done = 0;
+      for (const batch of batches) {
+        const form = new FormData();
+        batch.forEach((f) => form.append('images', f));
+        if (uploadColor) form.append('color', uploadColor);
+        form.append('alt', product.name);
+        const res = await uploadForm<{ product: AdminProduct }>(`/admin/products/${product._id}/images`, form, {
+          onProgress: (pct) => setProgress(Math.round(((done + pct / 100) / batches.length) * 100)),
+        });
+        apply(res.product);
+        done++;
+      }
       toast.success(`${files.length} image${files.length === 1 ? '' : 's'} stored in MongoDB GridFS`);
     } catch (err) {
       toast.error(errorMessage(err, 'Upload failed.'));

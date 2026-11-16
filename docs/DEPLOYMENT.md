@@ -7,7 +7,40 @@ Browser ──► Storefront (Next.js, :3000) ──SSR──► API (Express + 
    └──────────── fetch / WebSocket / images ──────────►┘                              └► Stripe, SMTP, Redis (optional)
 ```
 
-## Recommended topology
+## Option A — Vercel (one project, one domain)
+
+`vercel.json` deploys the repository as one Vercel project with two **services**:
+
+| Service | Folder | Runs as | Public path |
+| --- | --- | --- | --- |
+| `backend` | `backend/` | Express function, entry `dist/serverless.js` (built by `npm run build`) | `/api/*` |
+| `frontend` | `frontend/` | Next.js | everything else |
+
+The storefront's server rendering reaches the API through a **binding** that injects `BACKEND_URL`; the browser calls `/api` on the same domain, so cookies are first-party and no CORS setup is needed.
+
+Steps:
+
+1. **Atlas → Network Access:** add `0.0.0.0/0` (Vercel functions have no fixed IP addresses).
+2. **Seed once from your computer** if the database is new: `npm run seed` (the Vercel entry never seeds).
+3. **Import the repository** in Vercel. Framework and build settings come from `vercel.json`.
+4. **Environment variables:** Settings → Environment Variables → *Import .env*, using `.env.vercel.example` (keep your filled-in copy as `.env.vercel.local`, which git ignores).
+5. **Stripe webhook:** add the endpoint `https://<your-domain>/api/webhooks/stripe` in the Stripe Dashboard and set `STRIPE_WEBHOOK_SECRET` (events are listed in `.env.vercel.example`).
+6. **Own domain (optional):** add it in Vercel, then set `CLIENT_URL`, `API_PUBLIC_URL` and `NEXT_PUBLIC_SITE_URL` to it and redeploy.
+
+What changes on Vercel (functions cannot keep connections or timers open):
+
+- **Live updates are off.** Pages refresh their data when visitors navigate or return to the tab; prices and stock are always re-checked by the server at checkout.
+- **Maintenance runs on traffic.** Expired checkout reservations are released at most once a minute while the store gets requests (and immediately by Stripe's `checkout.session.expired` webhook).
+- **Uploads:** Vercel caps a request at 4.5 MB, so the owner portal accepts images up to 4 MB and sends several files in batches.
+- **Function region:** put it near your Atlas cluster (Vercel → Settings → Functions → Region).
+
+## Option B — Docker (one container: API + storefront)
+
+The root `Dockerfile` runs both apps with live updates and background jobs, for hosts that keep a server running (Render, Railway, Fly.io, a VPS). Build and run commands, and every environment variable, are documented at the top of the `Dockerfile`. Expose port 3000 (storefront) and 4000 (API) through your host's proxy, ideally as `www.` and `api.` subdomains of one domain (see the topology below).
+
+## Option C — two separate Node.js hosts
+
+### Recommended topology
 
 Put both on the **same site** so the session cookies stay first-party (`SameSite=Lax`):
 
@@ -18,7 +51,7 @@ Set `COOKIE_DOMAIN=.example.com` only if the storefront's server-side rendering 
 
 If the API must be on a different site (e.g. `*.onrender.com` with the storefront on `*.vercel.app`), set `COOKIE_SAMESITE=none` (HTTPS required) and add the storefront origin to `CORS_ORIGINS`.
 
-## API (Node.js)
+### API (Node.js)
 
 Any Node 20+ host works: Render, Railway, Fly.io, AWS, a VPS, etc. **WebSockets must be supported** for Socket.IO.
 
@@ -54,7 +87,7 @@ Notes:
 - **Health check:** `GET /api/health`.
 - **Seeding:** the bundled seed images live in `backend/src/seed/assets` and must be deployed with the build (they are, because the folder is part of the backend). After launch you can set `SEED_ON_START=false`.
 
-## Storefront (Next.js)
+### Storefront (Next.js)
 
 Vercel, Netlify or any Node host:
 

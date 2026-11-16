@@ -1,0 +1,26 @@
+# Secrets: never copy into an image. Pass them at run time (docker run --env-file).
+**/.env
+**/.env.*
+!**/.env.example
+
+# Installed packages and builds are recreated inside the image.
+**/node_modules
+**/.next
+**/dist
+**/coverage
+
+# Local data, logs, tests and editor/tool folders.
+**/.data
+**/*.log
+**/playwright-report
+**/test-results
+backend/tests
+frontend/tests
+.git
+.gitignore
+.vscode
+.claude
+docs
+*.bat
+Dockerfile*
+.dockerignore

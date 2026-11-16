@@ -1,0 +1,25 @@
+# Files never uploaded by `vercel deploy` from this computer.
+# Secrets: production values live in Vercel → Settings → Environment Variables.
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+!.env.vercel.example
+
+# Installed packages, builds and local data are recreated on Vercel.
+**/node_modules
+**/.next
+**/dist
+**/.data
+**/*.log
+**/test-results
+**/playwright-report
+**/tsconfig.tsbuildinfo
+
+# Local tooling.
+.vscode
+.claude
+*.bat
+Dockerfile
+.dockerignore
