@@ -7,10 +7,9 @@
 !**/.env.example
 !.env.vercel.example
 
-# Installed packages, builds and local data are recreated on Vercel.
-**/node_modules
-**/.next
-**/dist
+# Local data and logs. (node_modules, .next and dist are NOT listed: they are
+# already excluded from Git, and listing them here can strip the packages and
+# compiled code out of the API's function on Vercel.)
 **/.data
 **/*.log
 **/test-results
