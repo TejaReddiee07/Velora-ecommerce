@@ -2,6 +2,9 @@
   "name": "velora-web",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "description": "VELORA storefront and owner portal — Next.js",
   "scripts": {
     "dev": "next dev --port 3000",
