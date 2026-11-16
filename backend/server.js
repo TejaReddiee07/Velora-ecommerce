@@ -7,9 +7,13 @@
 // No top-level `await` anywhere in the API: Vercel may load this file with
 // require(), which cannot load modules that use it (ERR_REQUIRE_ASYNC_MODULE).
 import express from 'express'; // lets Vercel's Express preset recognise this entry
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 let api = null;
 let reason = null;
+let loading = null;
 
 // Keep the function alive and report errors that happen outside a request,
 // instead of Vercel showing a bare FUNCTION_INVOCATION_FAILED.
@@ -19,23 +23,53 @@ const record = (kind) => (err) => {
 };
 process.on('uncaughtException', record('uncaught exception'));
 process.on('unhandledRejection', record('unhandled rejection'));
-const loading = import('./dist/serverless.js').then(
-  (mod) => {
-    api = mod.default;
-  },
-  (err) => {
-    // Instead of a bare FUNCTION_INVOCATION_FAILED, answer with the reason
-    // (e.g. a missing environment variable — names only, never values).
-    console.error('VELORA API failed to start:', err);
-    reason = String(err?.message ?? err).split('\n').join(' ').slice(0, 400);
-  },
-);
+
+/** Loads the compiled API on first use; a failure is reported, not fatal. */
+function load() {
+  loading ??= import('./dist/serverless.js').then(
+    (mod) => {
+      api = mod.default;
+    },
+    (err) => {
+      console.error('VELORA API failed to start:', err);
+      reason ??= `${err?.code ? `${err.code}: ` : ''}${String(err?.message ?? err).split('\n').join(' ').slice(0, 400)}`;
+    },
+  );
+  return loading;
+}
+
+function here() {
+  try {
+    return path.dirname(fileURLToPath(import.meta.url));
+  } catch {
+    return typeof __dirname === 'string' ? __dirname : process.cwd();
+  }
+}
 
 const app = express();
 app.disable('x-powered-by');
+
+// TEMPORARY deployment check (remove once the live site works): safe facts only —
+// versions, paths, and whether required settings exist (never their values).
+app.get('/api/__diag', (_req, res) => {
+  const dir = here();
+  const names = ['MONGODB_URI', 'SESSION_SECRET', 'STRIPE_SECRET_KEY', 'ADMIN_EMAIL', 'ADMIN_PASSWORD'];
+  res.json({
+    node: process.version,
+    platform: `${process.platform}-${process.arch}`,
+    cwd: process.cwd(),
+    entryDir: dir,
+    distBuilt: fs.existsSync(path.join(dir, 'dist', 'serverless.js')),
+    vercelMarker: process.env.VERCEL ?? null,
+    settingsPresent: Object.fromEntries(names.map((k) => [k, Boolean(process.env[k]?.trim())])),
+    apiLoaded: Boolean(api),
+    startupProblem: reason,
+  });
+});
+
 app.use((req, res, next) => {
   if (api) return api(req, res, next);
-  loading.then(() => {
+  load().then(() => {
     if (api) return api(req, res, next);
     res.status(503).json({ error: { code: 'API_START_FAILED', message: 'The store API could not start. Check the Vercel function logs.', reason } });
   });
