@@ -10,6 +10,7 @@ import { globalLimiter, originCheck, stripDangerousKeys } from './middleware/sec
 import { requireAdmin } from './middleware/auth.js';
 import webhookRoutes from './routes/webhook.routes.js';
 import publicRoutes from './routes/public.routes.js';
+import realtimeRoutes from './routes/realtime.routes.js';
 import authRoutes from './routes/auth.routes.js';
 import shopRoutes from './routes/shop.routes.js';
 import adminAuthRoutes from './routes/admin/auth.routes.js';
@@ -64,6 +65,7 @@ export function createApp() {
   });
 
   app.use('/api', publicRoutes);
+app.use('/api', realtimeRoutes);
   app.use('/api', authRoutes);
   app.use('/api', shopRoutes);
 

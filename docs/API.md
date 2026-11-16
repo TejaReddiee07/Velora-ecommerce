@@ -29,6 +29,7 @@ Exceeding a limit returns `429 RATE_LIMITED`.
 | Method | Path | Description |
 | --- | --- | --- |
 | GET | `/health` | Database, transactions, Stripe, jobs and email status |
+| GET | `/realtime/ticket` | `{ ticket }`: a one-minute signed ticket for the Socket.IO handshake (`null` when signed out). Never cached. See *Real-time events* |
 | GET | `/settings/public` | Store name, logo, contact, currencies, tax display, delivery methods, return policy, announcement, active banners, social links, `stripeEnabled` |
 | GET | `/catalog/categories` | Active categories with published product counts |
 | GET | `/catalog/brands` | Active brands |
@@ -183,7 +184,9 @@ Accounting rules: [ANALYTICS.md](ANALYTICS.md).
 
 ## Real-time events (Socket.IO)
 
-Connect to the API origin with `withCredentials: true`. Rooms are assigned on the server from session cookies; clients can't choose rooms.
+Connect to the API origin with `withCredentials: true`. Rooms are assigned on the server from the session cookies; clients can't choose rooms.
+
+When the storefront reaches the API through its own domain (`NEXT_PUBLIC_API_PROXY=1`, see [DEPLOYMENT.md](DEPLOYMENT.md)) the cookies never reach the socket host. The client then fetches `GET /realtime/ticket` over the proxy and passes it as `io(url, { auth: { ticket } })`; a valid ticket decides the rooms instead of the cookies, and an invalid or expired one simply gives an anonymous `storefront` connection.
 
 | Room | Events |
 | --- | --- |

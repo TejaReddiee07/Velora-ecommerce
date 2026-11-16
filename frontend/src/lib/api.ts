@@ -1,4 +1,4 @@
-import { API_URL } from './config';
+import { API_ORIGIN, API_URL } from './config';
 
 export class ApiError extends Error {
   status: number;
@@ -63,7 +63,7 @@ export async function api<T>(
 }
 
 export function imageUrl(fileId?: string | null) {
-  return fileId ? `${API_URL}/api/images/${fileId}` : '';
+  return fileId ? `${API_ORIGIN}/api/images/${fileId}` : '';
 }
 
 export function srcSet(img?: { sm: string; md: string; lg: string } | null) {

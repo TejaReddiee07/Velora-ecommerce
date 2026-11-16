@@ -3,6 +3,7 @@ import { Server } from 'socket.io';
 import { parseCookie } from 'cookie';
 import { env } from '../config/env.js';
 import { COOKIE_ADMIN, COOKIE_USER, adminFromToken, userFromToken } from '../services/session.service.js';
+import { verifySocketTicket } from '../services/socket-ticket.js';
 import { logger } from '../utils/logger.js';
 
 /**
@@ -24,14 +25,29 @@ export function initSocket(server: HttpServer) {
   io.on('connection', async (socket) => {
     socket.join('storefront');
     try {
-      const cookies = parseCookie(socket.handshake.headers.cookie ?? '');
-      const [user, admin] = await Promise.all([
-        userFromToken(cookies[COOKIE_USER]),
-        adminFromToken(cookies[COOKIE_ADMIN]),
-      ]);
-      if (user) socket.join(`user:${String(user._id)}`);
-      if (admin) socket.join('admin');
-      socket.emit('session', { user: Boolean(user), admin: Boolean(admin) });
+      // A signed ticket (storefront behind a same-site proxy, where cookies never reach this host) wins;
+      // otherwise the session cookies decide, exactly as before.
+      const ticket = verifySocketTicket((socket.handshake.auth as { ticket?: unknown } | undefined)?.ticket);
+      let user = false;
+      let admin = false;
+      if (ticket) {
+        if (ticket.user) {
+          socket.join(`user:${ticket.user}`);
+          user = true;
+        }
+        if (ticket.admin) {
+          socket.join('admin');
+          admin = true;
+        }
+      } else {
+        const cookies = parseCookie(socket.handshake.headers.cookie ?? '');
+        const [u, a] = await Promise.all([userFromToken(cookies[COOKIE_USER]), adminFromToken(cookies[COOKIE_ADMIN])]);
+        if (u) socket.join(`user:${String(u._id)}`);
+        if (a) socket.join('admin');
+        user = Boolean(u);
+        admin = Boolean(a);
+      }
+      socket.emit('session', { user, admin });
     } catch (err) {
       logger.warn('Socket auth failed', err);
     }

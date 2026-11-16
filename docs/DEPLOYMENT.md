@@ -16,7 +16,7 @@ Put both on the **same site** so the session cookies stay first-party (`SameSite
 
 Set `COOKIE_DOMAIN=.example.com` only if the storefront's server-side rendering needs the cookie. Client-side calls work without it.
 
-If the API must be on a different site (e.g. `*.onrender.com` with the storefront on `*.vercel.app`), set `COOKIE_SAMESITE=none` (HTTPS required) and add the storefront origin to `CORS_ORIGINS`.
+If the API must be on a different site (e.g. `*.onrender.com` with the storefront on `*.vercel.app`) and you have no custom domain yet, do **not** rely on cross-site cookies: Safari (every iPhone), Brave and private windows block them, so customers could not stay signed in, keep a bag or check out. Use the same-site proxy described in [Storefront and API on different sites](#storefront-and-api-on-different-sites-vercel--render) instead.
 
 ## API (Node.js)
 
@@ -71,7 +71,26 @@ Environment:
 NEXT_PUBLIC_API_URL=https://api.example.com     # browser → API, images, WebSocket
 API_INTERNAL_URL=https://api.example.com        # server-side rendering → API (can be a private URL)
 NEXT_PUBLIC_SITE_URL=https://www.example.com
+NEXT_PUBLIC_API_PROXY=1                         # only if the API is on a different site, see below
 ```
+
+## Storefront and API on different sites (Vercel + Render)
+
+Browsers treat `*.vercel.app` and `*.onrender.com` as different sites. A login or bag cookie set by the API would be a *third-party* cookie, and Safari (every iPhone), Brave and private windows block those: customers could not stay signed in, keep a bag or check out, and the owner portal would show "Could not load analytics". `SameSite=None` does not help.
+
+The fix needs no custom domain: the storefront forwards its own `/api` to the API, so the cookies belong to the storefront's domain.
+
+1. On the storefront host (Vercel) keep `NEXT_PUBLIC_API_URL=https://<your-api>.onrender.com` and add `NEXT_PUBLIC_API_PROXY=1`.
+2. Redeploy the storefront (`NEXT_PUBLIC_*` values are baked in at build time). The build fails with a clear message if the API address is missing.
+3. Leave the API as it is: `CORS_ORIGINS` and `CLIENT_URL` keep the storefront address.
+
+What changes: the browser calls `https://<storefront>/api/...`, which `next.config.ts` forwards to the API. Product images still load straight from the API host (they are public), and so does the realtime socket; because the socket cannot see the storefront's cookies it authenticates with a one-minute signed ticket from `GET /api/realtime/ticket`. Remove the variable to go back to direct calls.
+
+Good to know:
+
+- The API sees the proxy's IP address instead of each visitor's, so its rate limits are shared by everyone using the store. That is fine for a small shop; a custom domain removes the limitation.
+- Image uploads from the owner portal pass through the proxy too. Test one large photo after deploying.
+- With a custom domain for both (`www.example.com` and `api.example.com`, `COOKIE_DOMAIN=.example.com`) none of this is needed.
 
 ## Stripe
 

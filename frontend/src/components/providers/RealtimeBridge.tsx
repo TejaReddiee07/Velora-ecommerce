@@ -4,7 +4,8 @@ import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { io, type Socket } from 'socket.io-client';
 import { toast } from 'sonner';
-import { API_URL } from '@/lib/config';
+import { api } from '@/lib/api';
+import { API_ORIGIN, API_PROXY } from '@/lib/config';
 import { useMe } from '@/lib/hooks';
 import type { ProductDetail } from '@/lib/types';
 
@@ -40,7 +41,22 @@ export function RealtimeBridge() {
 
   useEffect(() => {
     if (!socket) {
-      socket = io(API_URL, { withCredentials: true, transports: ['websocket', 'polling'], reconnectionDelayMax: 8000 });
+      socket = io(API_ORIGIN, {
+        withCredentials: true,
+        transports: ['websocket', 'polling'],
+        reconnectionDelayMax: 8000,
+        // Behind the same-site proxy the session cookies are not sent to this host: prove the session with a short-lived
+        // ticket instead (fetched fresh on every connect and reconnect).
+        ...(API_PROXY
+          ? {
+              auth: (cb: (data: object) => void) => {
+                api<{ ticket: string | null }>('/realtime/ticket')
+                  .then((r) => cb(r.ticket ? { ticket: r.ticket } : {}))
+                  .catch(() => cb({}));
+              },
+            }
+          : {}),
+      });
     }
     const s = socket;
 
