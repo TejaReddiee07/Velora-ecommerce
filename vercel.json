@@ -5,7 +5,7 @@
       "root": "backend",
       "framework": "express",
       "buildCommand": "npm run build",
-      "entrypoint": "dist/serverless.js"
+      "entrypoint": "server.js"
     },
     "frontend": {
       "root": "frontend",
