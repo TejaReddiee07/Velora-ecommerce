@@ -135,6 +135,79 @@
   }
 }
 
+/* ── Dark mode (storefront only) ──────────────────────────────────────────
+   Off until the shopper presses the round moon button (components/store/ThemeToggle.tsx); the choice is kept in this
+   browser and applied before the first paint by the script in app/layout.tsx. Nothing below applies in light mode.
+   The design tokens are redefined inside the storefront wrapper ([data-store] in app/(store)/layout.tsx), so the
+   owner portal never changes. Areas marked .theme-lock (the hero, the footer, dark bands, photo captions, screen
+   dimmers, the 3D showroom) keep their original colours in both modes. */
+@supports (color: color-mix(in lab, red, red)) {
+  :root[data-theme='dark'] [data-store] {
+    --color-ivory: #12100e;
+    --color-paper: #1a1715;
+    --color-sand: #24201c;
+    --color-line: #2e2924;
+    --color-line-strong: #4a433c;
+    --color-ink: #f3eee6;
+    --color-charcoal: #e8e1d6;
+    --color-graphite: #cfc7bb;
+    --color-muted: #a39a8e;
+    --color-gold: #c6a26c;
+    --color-gold-deep: #d8b77f;
+    --color-champagne: #3a3022;
+    --color-sale: #d65050;
+    --color-success: #6cc08a;
+    --color-danger: #ef7d7d;
+    --color-warning: #e3a857;
+  }
+  :root[data-theme='dark'] [data-store] .theme-lock {
+    --color-ivory: #f6f3ee;
+    --color-paper: #fbf9f6;
+    --color-sand: #ede7de;
+    --color-line: #e2dcd3;
+    --color-line-strong: #cbc3b7;
+    --color-ink: #0c0a09;
+    --color-charcoal: #1c1917;
+    --color-graphite: #44403c;
+    --color-muted: #57534e;
+    --color-gold: #b08d57;
+    --color-gold-deep: #7a5c2e;
+    --color-champagne: #e9dcc4;
+    --color-sale: #9f1d1d;
+    --color-success: #166534;
+    --color-danger: #b91c1c;
+    --color-warning: #92400e;
+  }
+  @layer base {
+    :root[data-theme='dark']:has([data-store]) {
+      color-scheme: dark;
+    }
+    :root[data-theme='dark'] body:has([data-store]) {
+      background: #12100e;
+    }
+    /* zero specificity, so any text colour class on the element still wins */
+    :where(:root[data-theme='dark'] [data-store]),
+    :where(:root[data-theme='dark'] [data-store] .theme-lock) {
+      color: var(--color-ink);
+    }
+    :root[data-theme='dark'] [data-store] .skeleton {
+      background-image: linear-gradient(90deg, #211d19 0px, #2c2723 120px, #211d19 240px);
+    }
+    /* no colour fades while the theme flips (the switch itself cross-fades where the browser supports it) */
+    :root[data-theme-switching] [data-store] *,
+    :root[data-theme-switching] [data-store] *::before,
+    :root[data-theme-switching] [data-store] *::after {
+      transition: none !important;
+    }
+  }
+}
+/* browsers too old to mix colours (Safari 15 and older) keep light mode and do not show the button */
+@supports not (color: color-mix(in lab, red, red)) {
+  .theme-toggle {
+    display: none;
+  }
+}
+
 /* iPhone Safari zooms the whole page when a form field with text under 16px is tapped. iOS (WebKit on touch) phones only,
    and only the small sizes this project uses; every other browser and screen is unaffected. */
 @supports (-webkit-touch-callout: none) {

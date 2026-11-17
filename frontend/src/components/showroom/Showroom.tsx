@@ -212,7 +212,7 @@ export function Showroom({ cutoutSlugs }: { cutoutSlugs: string[] | null }) {
   const sceneCanRender = webgl === true && racks.length > 0 && cutoutList !== undefined;
 
   return (
-    <section className="relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-[#f7f5f1]" aria-label="3D showroom">
+    <section className="theme-lock relative h-[100svh] min-h-[620px] w-full overflow-hidden bg-[#f7f5f1]" aria-label="3D showroom">
       <div className="absolute inset-0 touch-pan-y" onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={endDrag} onPointerCancel={endDrag} onPointerLeave={endDrag}>
         {sceneCanRender && (
           <SceneBoundary onError={() => setSceneFailed(true)}>

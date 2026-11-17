@@ -26,7 +26,7 @@ export function IntroLoader() {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-ink"
+          className="theme-lock fixed inset-0 z-[100] flex items-center justify-center bg-ink"
           initial={{ clipPath: 'inset(0 0 0 0)' }}
           exit={{ clipPath: 'inset(0 0 100% 0)', transition: { duration: 0.9, ease: EASE_LUXE } }}
           aria-hidden

@@ -107,7 +107,7 @@ export function SizeGuideModal({ type, open, onClose }: { type: string; open: bo
     <AnimatePresence>
       {open && (
         <>
-          <motion.div className="fixed inset-0 z-[80] bg-ink/50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+          <motion.div className="theme-lock fixed inset-0 z-[80] bg-ink/50" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
           <motion.div role="dialog" aria-modal="true" aria-label="Size guide" className="fixed inset-x-0 bottom-0 z-[81] max-h-[85vh] overflow-y-auto bg-ivory p-6 md:inset-auto md:left-1/2 md:top-1/2 md:w-[640px] md:-translate-x-1/2 md:-translate-y-1/2 md:p-10" initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 30, opacity: 0 }} transition={{ duration: 0.45, ease: EASE_LUXE }} data-lenis-prevent>
             <div className="mb-6 flex items-center justify-between">
               <p className="eyebrow text-muted">Size guide</p>

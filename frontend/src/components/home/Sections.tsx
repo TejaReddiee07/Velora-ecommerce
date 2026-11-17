@@ -89,7 +89,7 @@ export function CollectionTiles({ banners }: { banners: Banner[] }) {
         {tiles.map((t, i) => (
           <FadeIn key={t._id} delay={i * 0.08} className={cn('group relative overflow-hidden', layout[i])}>
             <Link href={t.ctaHref || '/'} className="block h-full">
-              <div className="relative h-full overflow-hidden">
+              <div className="theme-lock relative h-full overflow-hidden">
                 {t.image && (
                   <ParallaxImage
                     src={imageUrl(t.image.lg)}
@@ -141,7 +141,7 @@ export function EditRail({ initial }: { initial?: Card[] | null }) {
 
   if (data && !data.length) return null;
   return (
-    <section ref={section} className="overflow-hidden bg-ink py-24 text-ivory lg:flex lg:h-screen lg:flex-col lg:justify-center lg:py-0" aria-labelledby="edit-heading">
+    <section ref={section} className="theme-lock overflow-hidden bg-ink py-24 text-ivory lg:flex lg:h-screen lg:flex-col lg:justify-center lg:py-0" aria-labelledby="edit-heading">
       <div className="container-luxe">
         <div className="mb-12 flex items-end justify-between gap-6">
           <div>
@@ -210,7 +210,7 @@ export function FootwearShowcase({ initial }: { initial?: Card[] | null }) {
   const use3D = webgl && !reduced && items.length >= 4;
 
   return (
-    <section className="relative bg-ink py-24 text-ivory md:py-32" aria-labelledby="footwear-heading">
+    <section className="theme-lock relative bg-ink py-24 text-ivory md:py-32" aria-labelledby="footwear-heading">
       <div className="container-luxe">
         <div className="mb-10 grid gap-8 md:grid-cols-[1.2fr_1fr] md:items-end">
           <div>
@@ -319,7 +319,7 @@ export function PromoBanner({ banners }: { banners: Banner[] }) {
   const promo = banners.find((b) => b.placement === 'promo');
   if (!promo) return null;
   return (
-    <section className="relative overflow-hidden bg-ink text-ivory" aria-label={promo.title}>
+    <section className="theme-lock relative overflow-hidden bg-ink text-ivory" aria-label={promo.title}>
       <div className="grid md:grid-cols-2">
         <div className="relative min-h-[420px] overflow-hidden md:min-h-[600px]">
           {promo.image && <ParallaxImage src={imageUrl(promo.image.lg)} srcSet={srcSet(promo.image)} alt="" sizes="(min-width: 768px) 50vw, 100vw" amount={90} />}

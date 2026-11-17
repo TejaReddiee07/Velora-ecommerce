@@ -366,7 +366,7 @@ export function ShopListing({ preset, title, intro }: { preset: ListingPreset; t
       <AnimatePresence>
         {drawer && (
           <>
-            <motion.div className="fixed inset-0 z-[60] bg-ink/45" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setDrawer(false)} />
+            <motion.div className="theme-lock fixed inset-0 z-[60] bg-ink/45" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setDrawer(false)} />
             <motion.div role="dialog" aria-modal="true" aria-label="Filters" className="fixed inset-y-0 left-0 z-[61] flex w-[88%] max-w-sm flex-col bg-ivory" initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} transition={{ duration: 0.45, ease: EASE_LUXE }} data-lenis-prevent>
               <div className="flex h-16 items-center justify-between border-b border-line px-5">
                 <p className="font-display text-2xl">Filters</p>

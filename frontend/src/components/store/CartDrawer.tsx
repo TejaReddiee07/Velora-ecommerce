@@ -60,7 +60,7 @@ export function CartDrawer() {
     <AnimatePresence>
       {cartOpen && (
         <>
-          <motion.div className="fixed inset-0 z-[60] bg-ink/45 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCartOpen(false)} />
+          <motion.div className="theme-lock fixed inset-0 z-[60] bg-ink/45 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setCartOpen(false)} />
           <motion.aside
             role="dialog"
             aria-modal="true"

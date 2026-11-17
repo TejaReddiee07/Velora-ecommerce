@@ -32,9 +32,16 @@ export const viewport: Viewport = {
   themeColor: '#0c0a09',
 };
 
+// Applies the shopper's saved dark mode before the first paint, so the page never flashes light first
+// (see components/store/ThemeToggle.tsx). Light is the default when nothing is saved.
+const THEME_SCRIPT = `(function(){try{if(localStorage.getItem('velora_theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}})()`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-GB" className={`${cormorant.variable} ${jost.variable}`}>
+    <html lang="en-GB" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

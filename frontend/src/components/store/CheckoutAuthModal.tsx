@@ -122,7 +122,7 @@ function Panel({ onClose, defaults, onAuthenticated }: Omit<Props, 'open'>) {
 
   return (
     <>
-      <motion.div className="fixed inset-0 z-[70] bg-ink/50 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
+      <motion.div className="theme-lock fixed inset-0 z-[70] bg-ink/50 backdrop-blur-[2px]" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} />
       <div className="pointer-events-none fixed inset-0 z-[71] flex items-end justify-center sm:items-center sm:p-6">
         <motion.div
           ref={dialogRef}

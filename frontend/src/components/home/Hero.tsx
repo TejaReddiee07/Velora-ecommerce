@@ -58,7 +58,7 @@ export function Hero({ banners }: { banners: Banner[] }) {
   const show3D = webgl && !reduced;
 
   return (
-    <section ref={ref} className="grain relative h-[100svh] min-h-[640px] overflow-hidden bg-ink text-ivory" aria-label="Featured collection" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
+    <section ref={ref} className="theme-lock grain relative h-[100svh] min-h-[640px] overflow-hidden bg-ink text-ivory" aria-label="Featured collection" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       {/* Editorial photograph — visible on load, beneath the 3D silk */}
       <AnimatePresence mode="sync">
         {banner?.image && (

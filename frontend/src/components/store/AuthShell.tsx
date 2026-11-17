@@ -11,7 +11,7 @@ export function AuthShell({ title, subtitle, children }: { title: string; subtit
   const img = settings?.banners.find((b) => b.placement === 'collection' && b.title === 'Womenswear')?.image ?? settings?.banners[0]?.image;
   return (
     <div className="grid min-h-[100svh] lg:grid-cols-2">
-      <div className="relative hidden overflow-hidden bg-ink lg:block">
+      <div className="theme-lock relative hidden overflow-hidden bg-ink lg:block">
         {img && (
           // eslint-disable-next-line @next/next/no-img-element
           <motion.img initial={{ scale: 1.1, opacity: 0 }} animate={{ scale: 1, opacity: 0.85 }} transition={{ duration: 1.6, ease: EASE_LUXE }} src={imageUrl(img.lg)} alt="" className="absolute inset-0 h-full w-full object-cover" />

@@ -89,7 +89,7 @@ export function ShowroomTeaser() {
                       <svg viewBox="0 0 120 52" className="w-[78%] text-ink" aria-hidden>
                         <path d="M60 2c-6 0-9 4-9 8 0 3 2 5 5 6l4 2v6L6 46h108L60 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round" />
                       </svg>
-                      <div className="-mt-1 w-full border-[6px] border-white bg-white shadow-[0_18px_30px_-16px_rgba(12,10,9,0.45)] transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:-translate-y-1">
+                      <div className="theme-lock -mt-1 w-full border-[6px] border-white bg-white shadow-[0_18px_30px_-16px_rgba(12,10,9,0.45)] transition-transform duration-700 ease-[var(--ease-luxe)] group-hover:-translate-y-1">
                         <div className="aspect-[4/5] overflow-hidden bg-sand">
                           {item && (
                             // eslint-disable-next-line @next/next/no-img-element
@@ -106,7 +106,7 @@ export function ShowroomTeaser() {
 
             {/* sticker */}
             <motion.span
-              className="absolute -right-2 top-[58%] flex h-20 w-20 items-center justify-center rounded-full border-[4px] border-white bg-champagne font-display text-2xl italic text-ink shadow-[0_12px_26px_-10px_rgba(12,10,9,0.45)] md:-right-6"
+              className="theme-lock absolute -right-2 top-[58%] flex h-20 w-20 items-center justify-center rounded-full border-[4px] border-white bg-champagne font-display text-2xl italic text-ink shadow-[0_12px_26px_-10px_rgba(12,10,9,0.45)] md:-right-6"
               initial={{ scale: 0, rotate: -30 }}
               whileInView={{ scale: 1, rotate: 12 }}
               viewport={{ once: true }}

@@ -85,7 +85,7 @@ export function Footer({ initialSettings }: { initialSettings?: PublicSettings |
   const { data: s } = useSettings(initialSettings);
   const social = Object.entries(s?.social ?? {}).filter(([, v]) => Boolean(v));
   return (
-    <footer className="relative mt-24 bg-ink text-ivory">
+    <footer className="theme-lock relative mt-24 bg-ink text-ivory">
       <div className="container-luxe grid gap-14 py-20 lg:grid-cols-[1.3fr_2fr]">
         <div className="max-w-md">
           <Logo light className="text-[2.2rem]" />

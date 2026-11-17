@@ -5,13 +5,15 @@ import { SearchOverlay } from '@/components/store/SearchOverlay';
 import { FlyToBag } from '@/components/store/FlyToBag';
 import { SmoothScroll } from '@/components/store/SmoothScroll';
 import { IntroLoader } from '@/components/store/IntroLoader';
+import { ThemeToggle } from '@/components/store/ThemeToggle';
 import { serverApi } from '@/lib/server-api';
 import type { PublicSettings } from '@/lib/types';
 
 export default async function StoreLayout({ children }: { children: React.ReactNode }) {
   const settings = await serverApi<PublicSettings>('/settings/public');
   return (
-    <>
+    // data-store scopes dark mode to the storefront (see globals.css); display: contents keeps the layout unchanged
+    <div data-store className="contents">
       <IntroLoader />
       <SmoothScroll />
       <Header initialSettings={settings} />
@@ -22,6 +24,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
       <CartDrawer />
       <SearchOverlay />
       <FlyToBag />
-    </>
+      <ThemeToggle />
+    </div>
   );
 }

@@ -135,7 +135,7 @@ export function ProductGallery({ images, name, activeColor }: { images: ImageRef
 
       <AnimatePresence>
         {fullscreen && (
-          <motion.div role="dialog" aria-modal="true" aria-label={`${name} images`} className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/95" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} data-lenis-prevent onKeyDown={(e) => {
+          <motion.div role="dialog" aria-modal="true" aria-label={`${name} images`} className="theme-lock fixed inset-0 z-[90] flex items-center justify-center bg-ink/95" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} data-lenis-prevent onKeyDown={(e) => {
             if (e.key === 'Escape') setFullscreen(false);
             if (e.key === 'ArrowRight') go(index + 1);
             if (e.key === 'ArrowLeft') go(index - 1);

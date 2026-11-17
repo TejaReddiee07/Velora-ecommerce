@@ -146,12 +146,12 @@ export function Header({ initialSettings }: { initialSettings?: PublicSettings |
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[transform,background-color,box-shadow] duration-500 ease-[var(--ease-luxe)]',
           hidden && !menuOpen ? '-translate-y-full' : 'translate-y-0',
-          transparent ? 'bg-transparent' : 'bg-ivory/92 backdrop-blur-md shadow-[0_1px_0_var(--color-line)]',
+          transparent ? 'theme-lock bg-transparent' : 'bg-ivory/92 backdrop-blur-md shadow-[0_1px_0_var(--color-line)]',
         )}
         onMouseLeave={scheduleClose}
       >
         {announcement?.enabled && announcement.text && (
-          <div className={cn('flex h-9 items-center justify-center px-4 text-center text-[11px] tracking-[0.2em] uppercase', transparent ? 'bg-ink/40 text-ivory' : 'bg-ink text-ivory')}>
+          <div className={cn('theme-lock flex h-9 items-center justify-center px-4 text-center text-[11px] tracking-[0.2em] uppercase', transparent ? 'bg-ink/40 text-ivory' : 'bg-ink text-ivory')}>
             {announcement.link ? (
               <Link href={announcement.link} className="link-underline truncate">
                 {announcement.text}
@@ -268,7 +268,7 @@ export function Header({ initialSettings }: { initialSettings?: PublicSettings |
                       </div>
                     ))}
                     {cols.length === 2 && <div />}
-                    <Link href={m.href} className="group relative block overflow-hidden" onClick={() => setOpen(null)}>
+                    <Link href={m.href} className="theme-lock group relative block overflow-hidden" onClick={() => setOpen(null)}>
                       <GridImage image={banner?.image} alt={banner?.title ?? m.label} ratio="4 / 3" sizes="340px" imgClassName="transition-transform duration-[1.4s] ease-[var(--ease-luxe)] group-hover:scale-105" />
                       <div className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
                       <div className="absolute bottom-4 left-4 text-ivory">
