@@ -57,7 +57,7 @@ function Panel({ onClose, defaults, onAuthenticated }: Omit<Props, 'open'>) {
     onSuccess: (d) => {
       qc.setQueryData(['me'], d.user);
       reconnectRealtime();
-      toast.success('Account created. Taking you to secure payment…');
+      toast.success('Account created.');
       onAuthenticated('register');
     },
   });

@@ -60,6 +60,7 @@ export function ButtonLink({
   children,
   icon,
   full,
+  onClick,
 }: {
   href: string;
   variant?: Variant;
@@ -68,9 +69,10 @@ export function ButtonLink({
   children: ReactNode;
   icon?: ReactNode;
   full?: boolean;
+  onClick?: () => void;
 }) {
   return (
-    <Link href={href} className={cn(base, variants[variant], sizes[size], full && 'w-full', className)}>
+    <Link href={href} onClick={onClick} className={cn(base, variants[variant], sizes[size], full && 'w-full', className)}>
       <span>{children}</span>
       {icon}
     </Link>

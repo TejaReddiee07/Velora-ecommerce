@@ -116,7 +116,7 @@ export function CartDrawer() {
                   <ShoppingBag className="h-10 w-10 text-line-strong" strokeWidth={1} />
                   <p className="font-display text-2xl">Your bag is empty</p>
                   <p className="max-w-[260px] text-sm text-muted">Discover new arrivals and timeless pieces from the collection.</p>
-                  <ButtonLink href="/new-arrivals" variant="secondary" size="sm">
+                  <ButtonLink href="/new-arrivals" variant="secondary" size="sm" onClick={() => setCartOpen(false)}>
                     Shop new arrivals
                   </ButtonLink>
                 </div>
@@ -185,10 +185,10 @@ export function CartDrawer() {
                   </div>
                 </dl>
                 <div className="mt-5 grid grid-cols-2 gap-3">
-                  <ButtonLink href="/cart" variant="secondary" full>
+                  <ButtonLink href="/cart" variant="secondary" full onClick={() => setCartOpen(false)}>
                     View bag
                   </ButtonLink>
-                  <ButtonLink href="/checkout" full>
+                  <ButtonLink href="/checkout" full onClick={() => setCartOpen(false)}>
                     Checkout
                   </ButtonLink>
                 </div>

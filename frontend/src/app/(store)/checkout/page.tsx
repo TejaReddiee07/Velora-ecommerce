@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Lock, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
@@ -50,6 +50,8 @@ export default function CheckoutPage() {
   const [guestEmail, setGuestEmail] = useState('');
   const [tried, setTried] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const autoOpened = useRef(false);
+  const closeAuth = useCallback(() => setAuthOpen(false), []);
 
   const cartKey = ['cart', currency, 'checkout', delivery];
   const fetchCart = async () => (await api<{ cart: Cart }>('/cart', { query: { currency, delivery } })).cart;
@@ -142,8 +144,22 @@ export default function CheckoutPage() {
       const fresh = await qc.fetchQuery({ queryKey: cartKey, queryFn: fetchCart, staleTime: 0 });
       qc.invalidateQueries({ queryKey: ['cart'] });
       qc.invalidateQueries({ queryKey: ['addresses'] });
+      // Signed up before filling in the form (the sign-up is offered as soon as checkout opens): finish the details, then press Pay.
+      const stillNeeded = detailsMissing();
+      delete stillNeeded.email; // the account email is used now
+      if (fresh.lines.length && Object.keys(stillNeeded).length) {
+        if (mode === 'register') {
+          setTried(true);
+          toast.info('Add your delivery details, then press Pay.');
+          setTimeout(() => document.querySelector<HTMLElement>('form [aria-invalid="true"]')?.focus(), 80);
+        } else {
+          toast.info('You are signed in. Check your delivery details, then press Pay.');
+        }
+        return;
+      }
       const unchanged = shown && fresh.itemCount === shown.itemCount && fresh.total === shown.total;
       if (fresh.lines.length && !fresh.hasIssues && (mode === 'register' || unchanged)) {
+        if (mode === 'register') toast.info('Taking you to secure payment…');
         pay.mutate(fresh);
       } else if (fresh.lines.length) {
         toast.info('Items saved in your account were added to your bag. Please review your order, then press Pay.');
@@ -152,6 +168,14 @@ export default function CheckoutPage() {
       toast.error('Please press Pay again to continue.');
     }
   };
+
+  // A new (signed-out) visitor who reaches checkout with items in the bag is shown the create-account step straight away.
+  // They can close it to look at the form first; pressing Pay opens it again.
+  useEffect(() => {
+    if (autoOpened.current || meLoading || me || isLoading || !cart || cart.lines.length === 0) return;
+    autoOpened.current = true;
+    setAuthOpen(true);
+  }, [meLoading, me, isLoading, cart]);
 
   if (meLoading) return <div className="container-luxe pt-[150px]"><Skeleton className="h-96" /></div>;
   if (isLoading) return <div className="container-luxe pt-[150px]"><Skeleton className="h-96" /></div>;
@@ -340,7 +364,7 @@ export default function CheckoutPage() {
       </form>
       <CheckoutAuthModal
         open={authOpen}
-        onClose={() => setAuthOpen(false)}
+        onClose={closeAuth}
         defaults={{ name: address.fullName, email: guestEmail }}
         onAuthenticated={continueAfterAuth}
       />

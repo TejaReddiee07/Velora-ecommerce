@@ -119,7 +119,8 @@ export function Header({ initialSettings }: { initialSettings?: PublicSettings |
   useEffect(() => {
     setOpen(null);
     setMenuOpen(false);
-  }, [pathname, setMenuOpen]);
+    setCartOpen(false); // the bag panel must not stay open over the page the shopper just went to (e.g. Checkout)
+  }, [pathname, setMenuOpen, setCartOpen]);
 
   const transparent = isHome && !scrolled && !open && !menuOpen;
   const tone = transparent ? 'light' : 'dark';
