@@ -24,7 +24,7 @@ A production-oriented e-commerce platform for a fashion house selling clothing, 
 - [How the critical flows work](#how-the-critical-flows-work)
 - [Configuration reference](#configuration-reference)
 - [Known limitations](#known-limitations)
-- Guides: [MongoDB & GridFS](docs/DATABASE.md) · [Stripe](docs/STRIPE.md) · [API reference](docs/API.md) · [Revenue rules](docs/ANALYTICS.md) · [Deployment](docs/DEPLOYMENT.md) · [3D showroom](docs/SHOWROOM.md)
+- Guides: [MongoDB & GridFS](docs/DATABASE.md) · [Stripe](docs/STRIPE.md) · [API reference](docs/API.md) · [Browsers & devices](docs/BROWSERS.md) · [Revenue rules](docs/ANALYTICS.md) · [Deployment](docs/DEPLOYMENT.md) · [3D showroom](docs/SHOWROOM.md)
 
 ---
 

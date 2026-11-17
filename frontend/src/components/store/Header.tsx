@@ -194,7 +194,7 @@ export function Header({ initialSettings }: { initialSettings?: PublicSettings |
           </div>
 
           <Link href="/" aria-label="VELORA home" className="justify-self-center">
-            <Logo light={tone === 'light'} className="text-[1.45rem] md:text-[1.7rem]" />
+            <Logo light={tone === 'light'} className="text-[1.45rem] max-[340px]:text-[1.1rem] md:text-[1.7rem]" />
           </Link>
 
           <div className="flex items-center justify-end">

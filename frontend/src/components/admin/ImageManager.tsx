@@ -245,7 +245,7 @@ export function ImageManager({ product }: { product: AdminProduct }) {
                     </select>
                   </label>
                 )}
-                <div className="flex items-center justify-between pt-1">
+                <div className="flex items-center justify-between pt-1 max-[380px]:flex-wrap">
                   <div className="flex">
                     <button type="button" onClick={() => move(i, -1)} disabled={i === 0 || reorder.isPending} className="inline-flex h-9 w-9 items-center justify-center text-graphite hover:bg-sand disabled:opacity-30" aria-label={`Move image ${i + 1} earlier`}>
                       <ArrowLeft className="h-4 w-4" />

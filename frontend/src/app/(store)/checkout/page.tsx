@@ -171,7 +171,7 @@ export default function CheckoutPage() {
       </div>
 
       <form
-        className="mt-10 grid gap-12 lg:grid-cols-[1fr_420px]"
+        className="mt-10 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_420px]"
         onSubmit={(e) => {
           e.preventDefault();
           submit();

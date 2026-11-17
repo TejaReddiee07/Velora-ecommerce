@@ -176,7 +176,8 @@ export function ProductCard({ product, index = 0, priority }: { product: Card; i
               onClick={openQuick}
               className={cn(
                 'flex h-10 w-full items-center justify-center gap-2 bg-ivory/95 text-[11px] uppercase tracking-[0.2em] backdrop-blur transition-all duration-500 hover:bg-ink hover:text-ivory',
-                'lg:translate-y-2 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:focus-visible:translate-y-0 lg:focus-visible:opacity-100',
+                // hidden-until-hover only where a pointer can hover; touch screens keep the button visible
+                'lg:[@media(hover:hover)]:translate-y-2 lg:[@media(hover:hover)]:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:focus-visible:translate-y-0 lg:focus-visible:opacity-100',
                 quick && 'lg:translate-y-0 lg:opacity-100',
               )}
               aria-expanded={Boolean(quick)}

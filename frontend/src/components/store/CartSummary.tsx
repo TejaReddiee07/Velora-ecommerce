@@ -48,7 +48,7 @@ export function CouponForm() {
           placeholder="e.g. WELCOME10"
           aria-invalid={err ? true : undefined}
           aria-describedby={err ? 'coupon-error' : undefined}
-          className="h-12 flex-1 border border-r-0 border-line-strong bg-paper px-4 text-[15px] uppercase tracking-wide focus:border-ink focus:outline-none"
+          className="h-12 min-w-0 flex-1 border border-r-0 border-line-strong bg-paper px-4 text-[15px] uppercase tracking-wide focus:border-ink focus:outline-none"
         />
         <Button type="button" variant="secondary" loading={applyCoupon.isPending} className="h-12" onClick={apply}>
           Apply

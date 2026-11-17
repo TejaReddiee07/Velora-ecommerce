@@ -27,7 +27,9 @@ interface UIState {
 }
 
 export const useUI = create<UIState>((set) => ({
-  currency: readCurrency(),
+  // Not read from the cookie here: React hydrates with this initial value, and the server rendered with no currency, so a
+  // cookie-based value made the first browser render differ from the server HTML (React error #418). See below.
+  currency: null,
   setCurrency: (c) => {
     document.cookie = `${CURRENCY_COOKIE}=${c}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
     set({ currency: c });
@@ -43,3 +45,8 @@ export const useUI = create<UIState>((set) => ({
   clearFlight: () => set((s) => ({ flight: null, bagPulse: s.bagPulse + 1 })),
   bagPulse: 0,
 }));
+
+// A saved currency is applied right after the store is created, not as its initial value: the page hydrates to match the
+// server HTML first, then re-renders with the saved currency (useSyncExternalStore does this without any hydration error).
+const savedCurrency = readCurrency();
+if (savedCurrency) useUI.setState({ currency: savedCurrency });

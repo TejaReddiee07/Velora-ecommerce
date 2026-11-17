@@ -346,7 +346,7 @@ export function ProductForm({ product }: { product?: AdminProduct }) {
         title="Variants & stock"
         description="One variant per size and colour, each with its own SKU and stock. Editing a stock number sets the on-hand quantity and is recorded in the stock ledger."
       >
-        <div className="mb-6 grid gap-4 border border-dashed border-line-strong p-4 lg:grid-cols-[1fr_1.2fr_140px_auto] lg:items-end">
+        <div className="mb-6 grid grid-cols-1 gap-4 border border-dashed border-line-strong p-4 lg:grid-cols-[1fr_1.2fr_140px_auto] lg:items-end">
           <div>
             <Input label="Sizes" value={sizesText} onChange={(e) => setSizesText(e.target.value)} placeholder="e.g. UK 7, UK 8, UK 9" hint="Comma separated" />
             <div className="mt-2 flex flex-wrap gap-1.5">

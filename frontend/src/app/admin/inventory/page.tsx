@@ -115,7 +115,7 @@ function InventoryInner() {
               ['reserved', 'Reserved'],
             ] as const
           ).map(([v, l]) => (
-            <button key={v} type="button" aria-pressed={filter === v} onClick={() => setFilter(v)} className={cn('h-10 px-4 text-[12px] uppercase tracking-[0.12em]', filter === v ? 'bg-ink text-ivory' : 'text-graphite hover:bg-sand')}>
+            <button key={v} type="button" aria-pressed={filter === v} onClick={() => setFilter(v)} className={cn('h-10 px-3 text-[12px] uppercase tracking-[0.12em] min-[360px]:px-4', filter === v ? 'bg-ink text-ivory' : 'text-graphite hover:bg-sand')}>
               {l}
             </button>
           ))}

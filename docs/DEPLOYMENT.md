@@ -71,7 +71,7 @@ Environment:
 NEXT_PUBLIC_API_URL=https://api.example.com     # browser → API, images, WebSocket
 API_INTERNAL_URL=https://api.example.com        # server-side rendering → API (can be a private URL)
 NEXT_PUBLIC_SITE_URL=https://www.example.com
-NEXT_PUBLIC_API_PROXY=1                         # only if the API is on a different site, see below
+NEXT_PUBLIC_API_PROXY=1                         # on by default on Vercel; 1 forces it on elsewhere, 0 turns it off (see below)
 ```
 
 ## Storefront and API on different sites (Vercel + Render)
@@ -80,11 +80,11 @@ Browsers treat `*.vercel.app` and `*.onrender.com` as different sites. A login o
 
 The fix needs no custom domain: the storefront forwards its own `/api` to the API, so the cookies belong to the storefront's domain.
 
-1. On the storefront host (Vercel) keep `NEXT_PUBLIC_API_URL=https://<your-api>.onrender.com` and add `NEXT_PUBLIC_API_PROXY=1`.
-2. Redeploy the storefront (`NEXT_PUBLIC_*` values are baked in at build time). The build fails with a clear message if the API address is missing.
+1. On Vercel nothing has to be set: the proxy is **on by default** for Vercel builds. Keep `NEXT_PUBLIC_API_URL=https://<your-api>.onrender.com` (the address it forwards to). On any other host set `NEXT_PUBLIC_API_PROXY=1` to turn it on.
+2. Push or redeploy the storefront (`NEXT_PUBLIC_*` values are baked in at build time). A build with `NEXT_PUBLIC_API_PROXY=1` fails with a clear message if the API address is missing.
 3. Leave the API as it is: `CORS_ORIGINS` and `CLIENT_URL` keep the storefront address.
 
-What changes: the browser calls `https://<storefront>/api/...`, which `next.config.ts` forwards to the API. Product images still load straight from the API host (they are public), and so does the realtime socket; because the socket cannot see the storefront's cookies it authenticates with a one-minute signed ticket from `GET /api/realtime/ticket`. Remove the variable to go back to direct calls.
+What changes: the browser calls `https://<storefront>/api/...`, which `next.config.ts` forwards to the API. Product images still load straight from the API host (they are public), and so does the realtime socket; because the socket cannot see the storefront's cookies it authenticates with a one-minute signed ticket from `GET /api/realtime/ticket`. Set `NEXT_PUBLIC_API_PROXY=0` to go back to direct calls.
 
 Good to know:
 

@@ -18,6 +18,17 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
   projects: [
-    { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'], viewport: { width: 1440, height: 900 } }, testIgnore: /devices\.spec\.ts/ },
+    // One project per browser engine / device class for the cross-browser smoke tests (docs/BROWSERS.md): npm run test:devices
+    { name: 'edge', use: { ...devices['Desktop Edge'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'safari-mac', use: { ...devices['Desktop Safari'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'iphone', use: { ...devices['iPhone 13'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'iphone-small', use: { ...devices['iPhone SE'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'ipad', use: { ...devices['iPad (gen 7)'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'ipad-landscape', use: { ...devices['iPad Pro 11 landscape'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'android', use: { ...devices['Pixel 7'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'android-small', use: { ...devices['Galaxy S9+'] }, testMatch: /devices\.spec\.ts/ },
+    { name: 'android-tablet', use: { ...devices['Galaxy Tab S4'] }, testMatch: /devices\.spec\.ts/ },
   ],
 });

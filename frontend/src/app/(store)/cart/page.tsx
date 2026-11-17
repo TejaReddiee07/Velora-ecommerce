@@ -29,7 +29,7 @@ export default function CartPage() {
           <EmptyState title="Your bag is empty" body="Pieces you add will appear here." action={<ButtonLink href="/new-arrivals">Discover new arrivals</ButtonLink>} />
         </div>
       ) : (
-        <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_400px]">
+        <div className="mt-12 grid grid-cols-1 gap-12 lg:grid-cols-[1fr_400px]">
           <section aria-label="Items in your bag">
             {cart.hasIssues && (
               <p role="alert" className="mb-6 border border-warning/40 bg-warning/5 px-4 py-3 text-[14px] text-warning">

@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start --port 3000",
     "typecheck": "tsc --noEmit",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test --project=desktop",
+    "test:devices": "playwright test devices.spec.ts --workers=3"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

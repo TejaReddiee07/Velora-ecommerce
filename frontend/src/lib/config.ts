@@ -1,11 +1,12 @@
 const REAL_API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000').replace(/\/$/, '');
 
 /**
- * NEXT_PUBLIC_API_PROXY=1: the API lives on another site than the storefront (e.g. storefront on Vercel, API on Render).
- * The browser then calls this site's own /api, which next.config.ts forwards to the API, so the session cookies stay
- * first-party. Safari/iOS and other privacy-minded browsers refuse the third-party cookies a cross-site API would need.
+ * True when the API lives on another site than the storefront (e.g. storefront on Vercel, API on Render). The browser then
+ * calls this site's own /api, which next.config.ts forwards to the API, so the session cookies stay first-party.
+ * Safari/iOS and other privacy-minded browsers refuse the third-party cookies a cross-site API would need.
+ * next.config.ts decides (on by default on Vercel; NEXT_PUBLIC_API_PROXY=1/0 overrides) and passes the result down.
  */
-export const API_PROXY = process.env.NEXT_PUBLIC_API_PROXY === '1';
+export const API_PROXY = process.env.NEXT_PUBLIC_API_VIA_PROXY === '1';
 /** Base URL of the browser's API calls: '' means this site's own /api (proxied). */
 export const API_URL = API_PROXY ? '' : REAL_API_URL;
 /** The real API host, for the cookie-less things the browser fetches directly: product images and the realtime socket. */
