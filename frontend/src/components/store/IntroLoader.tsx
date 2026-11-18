@@ -16,7 +16,9 @@ export function IntroLoader() {
     } catch {
       seen = true;
     }
-    if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // the installed app opens straight to the shop (every app launch is a new session, so the reveal would play each time)
+    const installedApp = window.matchMedia('(display-mode: standalone)').matches || (navigator as Navigator & { standalone?: boolean }).standalone === true;
+    if (seen || installedApp || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     setShow(true);
     const t = setTimeout(() => setShow(false), 1900);
     return () => clearTimeout(t);

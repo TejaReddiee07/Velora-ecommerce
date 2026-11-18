@@ -173,27 +173,31 @@ const BAG_WITH_ITEM = {
 };
 
 // Regression: the promo-code box made the summary column wider than a phone screen (Safari/iPhone) as soon as the bag had an item.
-test('the cart and checkout pages fit the screen when the bag has an item', async ({ page }) => {
-  await page.route(
-    (url) => url.pathname === '/api/cart',
-    async (route) => {
-      const origin = route.request().headers()['origin'] ?? '';
-      await route.fulfill({
-        json: BAG_WITH_ITEM,
-        headers: origin ? { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true' } : {},
-      });
-    },
-  );
-  const errors = scriptErrors(page);
-  await page.goto('/cart', { waitUntil: 'load' });
-  await expect(page.getByRole('link', { name: 'Leather Combat Boot' }).first()).toBeVisible();
-  await settle(page);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), 'the cart is wider than the screen').toBeLessThanOrEqual(1);
-  await page.goto('/checkout', { waitUntil: 'load' });
-  await expect(page.locator('main input[type=email]').first()).toBeVisible();
-  await settle(page);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), 'checkout is wider than the screen').toBeLessThanOrEqual(1);
-  expect(errors, 'script errors').toEqual([]);
+// The stand-in bag below is a network interception; the site's offline helper (public/sw.js) would bypass it in Safari, so it is off for this test.
+test.describe(() => {
+  test.use({ serviceWorkers: 'block' });
+  test('the cart and checkout pages fit the screen when the bag has an item', async ({ page }) => {
+    await page.route(
+      (url) => url.pathname === '/api/cart',
+      async (route) => {
+        const origin = route.request().headers()['origin'] ?? '';
+        await route.fulfill({
+          json: BAG_WITH_ITEM,
+          headers: origin ? { 'access-control-allow-origin': origin, 'access-control-allow-credentials': 'true' } : {},
+        });
+      },
+    );
+    const errors = scriptErrors(page);
+    await page.goto('/cart', { waitUntil: 'load' });
+    await expect(page.getByRole('link', { name: 'Leather Combat Boot' }).first()).toBeVisible();
+    await settle(page);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), 'the cart is wider than the screen').toBeLessThanOrEqual(1);
+    await page.goto('/checkout', { waitUntil: 'load' });
+    await expect(page.locator('main input[type=email]').first()).toBeVisible();
+    await settle(page);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth), 'checkout is wider than the screen').toBeLessThanOrEqual(1);
+    expect(errors, 'script errors').toEqual([]);
+  });
 });
 
 // Regression: with the US-dollar choice saved, the first browser render differed from the server HTML (React hydration error).

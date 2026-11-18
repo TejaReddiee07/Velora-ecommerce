@@ -5,6 +5,11 @@ import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber'
 import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
+/** Puts the shoe photos in the 3D texture cache ahead of time (called from the home page once it is idle). */
+export function preloadShoes(urls: string[]) {
+  urls.forEach((u) => useTexture.preload(u));
+}
+
 export interface CarouselItem {
   id: string;
   slug: string;
@@ -237,7 +242,8 @@ export default function FootwearCarousel({ items, active, mobile, onOpen }: { it
     <Canvas
       className="!absolute inset-0 touch-pan-y touch-pinch-zoom"
       dpr={mobile ? [1, 2] : [1, 1.6]}
-      frameloop={active ? 'always' : 'never'}
+      // off-screen it still draws once when ready ('demand'), so the 3D setup is done before the shopper arrives
+      frameloop={active ? 'always' : 'demand'}
       camera={{ position: [0, DESKTOP_CAM.y, DESKTOP_CAM.z], fov: 36 }}
       gl={{ antialias: true, alpha: false }}
       onCreated={({ gl, scene }) => {

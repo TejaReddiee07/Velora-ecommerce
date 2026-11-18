@@ -203,11 +203,26 @@ export function FootwearShowcase({ initial }: { initial?: Card[] | null }) {
   const reduced = useReducedMotion();
   const mobile = useMediaQuery('(max-width: 767px)');
   const webgl = useWebGL();
-  const { ref, near, visible } = useVisibility<HTMLDivElement>('400px');
+  // starts about two screens early so the pairs are ready (not a blank box) when the shopper reaches the section
+  const { ref, near, visible } = useVisibility<HTMLDivElement>('1600px');
   const [active, setActive] = useState(0);
   const items = (data ?? []).filter((p) => p.images[0]).slice(0, 8);
   const cats = (categories ?? []).filter((c) => c.department === 'footwear' && c.productCount > 0);
   const use3D = webgl && !reduced && items.length >= 4;
+  const shoeImages = use3D ? items.map((p) => imageUrl(p.images[0].md)).join('|') : '';
+
+  // Once the page is idle, fetch the 3D code and the shoe photos in the background (about 100 KB).
+  useEffect(() => {
+    if (!shoeImages) return;
+    const start = () => import('@/components/three/FootwearCarousel').then((m) => m.preloadShoes(shoeImages.split('|'))).catch(() => {});
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    if (w.requestIdleCallback) {
+      const id = w.requestIdleCallback(start, { timeout: 4000 });
+      return () => w.cancelIdleCallback?.(id);
+    }
+    const t = setTimeout(start, 2000);
+    return () => clearTimeout(t);
+  }, [shoeImages]);
 
   return (
     <section className="theme-lock relative bg-ink py-24 text-ivory md:py-32" aria-labelledby="footwear-heading">

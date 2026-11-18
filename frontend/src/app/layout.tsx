@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Jost } from 'next/font/google';
 import { Providers } from '@/components/providers/Providers';
+import { ServiceWorker } from '@/components/providers/ServiceWorker';
 import { SITE_URL } from '@/lib/config';
 import './globals.css';
 
@@ -24,6 +25,13 @@ export const metadata: Metadata = {
   title: { default: 'VELORA — Modern luxury, made to move', template: '%s · VELORA' },
   description: 'Considered clothing, footwear and accessories. Tailoring, knitwear, leather and sneakers from the VELORA studio.',
   openGraph: { type: 'website', siteName: 'VELORA', title: 'VELORA — Modern luxury, made to move' },
+  // Installable app (manifest in app/manifest.ts): app name and icons for home screens, the iPhone title and status bar
+  applicationName: 'VELORA',
+  appleWebApp: { capable: true, title: 'VELORA', statusBarStyle: 'black' },
+  icons: {
+    icon: [{ url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' }],
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 };
 
 export const viewport: Viewport = {
@@ -44,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <Providers>{children}</Providers>
+        <ServiceWorker />
       </body>
     </html>
   );

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0c0a09" />
+    <title>Offline · VELORA</title>
+    <script>
+      try { if (localStorage.getItem('velora_theme') === 'dark') document.documentElement.setAttribute('data-theme', 'dark'); } catch (e) {}
+    </script>
+    <style>
+      :root { --bg: #f6f3ee; --ink: #0c0a09; --muted: #57534e; --line: #cbc3b7; --gold: #7a5c2e; --btn: #1c1917; --btn-text: #f6f3ee; }
+      :root[data-theme='dark'] { --bg: #12100e; --ink: #f3eee6; --muted: #a39a8e; --line: #4a433c; --gold: #d8b77f; --btn: #e8e1d6; --btn-text: #12100e; color-scheme: dark; }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; margin: 0; }
+      body {
+        display: flex; align-items: center; justify-content: center; padding: 24px;
+        background: var(--bg); color: var(--ink);
+        font-family: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif; -webkit-font-smoothing: antialiased; text-align: center;
+      }
+      main { max-width: 420px; }
+      img { width: 72px; height: 72px; border-radius: 16px; }
+      .brand { margin: 28px 0 0; font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; font-size: 22px; letter-spacing: 0.42em; padding-left: 0.42em; }
+      .eyebrow { margin: 40px 0 0; font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); }
+      h1 { margin: 12px 0 0; font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif; font-weight: 400; font-size: 40px; line-height: 1.05; }
+      p.note { margin: 16px auto 0; max-width: 340px; color: var(--muted); font-size: 15px; line-height: 1.6; }
+      button {
+        margin-top: 32px; height: 48px; padding: 0 32px; border: 1px solid var(--btn); background: var(--btn); color: var(--btn-text);
+        font: inherit; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+      }
+      button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/icons/icon-192.png" alt="" />
+      <p class="brand">VELORA</p>
+      <p class="eyebrow">No connection</p>
+      <h1>You&rsquo;re offline</h1>
+      <p class="note">Check your internet connection and try again. Your bag and wishlist are saved and will be here when you&rsquo;re back.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+    </main>
+    <script>
+      window.addEventListener('online', function () { location.reload(); });
+    </script>
+  </body>
+</html>
