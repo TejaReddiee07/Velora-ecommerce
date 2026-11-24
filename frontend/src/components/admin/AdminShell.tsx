@@ -142,14 +142,18 @@ export function AdminShell({ children }: { children: ReactNode }) {
       )}
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-line bg-ivory/90 px-4 backdrop-blur md:px-8">
-          <div className="flex items-center gap-2">
+        {/* three columns so the VELORA name sits in the middle, as in the shop's header */}
+        <header className="sticky top-0 z-30 grid h-16 grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 border-b border-line bg-ivory/90 px-4 backdrop-blur md:px-8">
+          <div className="flex min-w-0 items-center gap-2">
             <button type="button" onClick={() => setDrawer(true)} className="inline-flex h-10 w-10 items-center justify-center text-ink lg:hidden" aria-label="Open navigation">
               <Menu className="h-5 w-5" />
             </button>
             <span className="eyebrow hidden text-muted sm:inline">Owner portal</span>
           </div>
-          <div className="flex items-center gap-1 sm:gap-3">
+          <Link href="/admin" aria-label="VELORA admin home" className="justify-self-center">
+            <Logo className="text-[1.25rem] max-[360px]:text-[1rem] md:text-[1.5rem]" />
+          </Link>
+          <div className="flex items-center justify-end gap-1 sm:gap-3">
             <NotificationBell />
             <div className="hidden text-right sm:block">
               <p className="text-[13px] leading-tight text-ink">{admin.name}</p>
@@ -159,7 +163,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
               type="button"
               onClick={() => logout.mutate()}
               disabled={logout.isPending}
-              className="inline-flex h-10 items-center gap-2 border border-line-strong px-3 text-[12px] uppercase tracking-[0.12em] text-ink transition-colors hover:border-ink"
+              className="inline-flex h-10 items-center gap-2 border border-line-strong px-3 text-[12px] uppercase tracking-[0.12em] text-ink transition-colors hover:border-ink max-[360px]:px-2"
             >
               <LogOut className="h-4 w-4" aria-hidden />
               <span className="hidden sm:inline">Sign out</span>

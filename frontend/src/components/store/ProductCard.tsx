@@ -91,7 +91,11 @@ export function ProductCard({ product, index = 0, priority }: { product: Card; i
       <motion.div
         ref={ref}
         onPointerMove={onMove}
-        onPointerEnter={() => setHover(true)}
+        // Mouse only: on iPhone/iPad, content that changes when a finger lands (the second photo fading in) makes Safari
+        // treat the first tap as a "hover" and swallow it, so the shopper had to tap twice to open the product.
+        onPointerEnter={(e) => {
+          if (e.pointerType === 'mouse') setHover(true);
+        }}
         onPointerLeave={onLeave}
         style={{ rotateX: rx, rotateY: ry, transformPerspective: 900 }}
         className="relative"
