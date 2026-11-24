@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
@@ -38,8 +38,12 @@ export function SmoothScroll() {
     };
   }, []);
 
+  // A newly opened page starts at the top. Not on the very first load: the browser already starts there, and a reset
+  // that lands once the page has finished starting up would yank it back if the shopper had already begun scrolling.
+  const firstPage = useRef(true);
   useEffect(() => {
-    if (lenis) lenis.scrollTo(0, { immediate: true });
+    if (firstPage.current) firstPage.current = false;
+    else if (lenis) lenis.scrollTo(0, { immediate: true });
     else window.scrollTo(0, 0);
     // Let new content mount before measuring triggers.
     const t = setTimeout(() => ScrollTrigger.refresh(), 300);

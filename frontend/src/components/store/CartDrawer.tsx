@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { toast } from 'sonner';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Minus, Plus, ShoppingBag, X } from 'lucide-react';
 import { useCart, useCartMutations } from '@/lib/hooks';
@@ -37,6 +38,7 @@ export function CartDrawer() {
 
   useEffect(() => {
     if (!cartOpen) return;
+    toast.dismiss(); // the 'added to your bag' message would cover the Checkout button at the bottom of the panel
     getLenis()?.stop();
     const prev = document.activeElement as HTMLElement | null;
     closeRef.current?.focus();
