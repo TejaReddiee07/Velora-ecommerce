@@ -201,6 +201,15 @@
     }
   }
 }
+/* Device performance level (lib/perf.ts, set on <html> before the first paint). On mid and low-powered devices the
+   frosted-glass blur behind see-through panels is dropped (the same see-through colour stays): it is redrawn on every
+   scrolled frame and is the costliest effect on phone graphics chips. Storefront only. */
+:root[data-perf='mid'] [data-store] *,
+:root[data-perf='low'] [data-store] * {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
 /* browsers too old to mix colours (Safari 15 and older) keep light mode and do not show the button */
 @supports not (color: color-mix(in lab, red, red)) {
   .theme-toggle {

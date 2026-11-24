@@ -2,8 +2,9 @@
 
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { MeshReflectorMaterial, useTexture } from '@react-three/drei';
+import { MeshReflectorMaterial, PerformanceMonitor, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
+import { useAdaptiveDpr } from './useAdaptiveDpr';
 
 /** Puts the shoe photos in the 3D texture cache ahead of time (called from the home page once it is idle). */
 export function preloadShoes(urls: string[]) {
@@ -100,7 +101,7 @@ function Panel({ item, angle, radius, onHover, hovered, onOpen, dragging }: { it
   );
 }
 
-function Ring({ items, onOpen, reflect, radius }: { items: CarouselItem[]; onOpen: (slug: string) => void; reflect: boolean; radius: number }) {
+function Ring({ items, onOpen, reflect, radius, reflectResolution }: { items: CarouselItem[]; onOpen: (slug: string) => void; reflect: boolean; radius: number; reflectResolution: number }) {
   const ring = useRef<THREE.Group>(null);
   const [hovered, setHovered] = useState<string | null>(null);
   const velocity = useRef(0.12);
@@ -201,7 +202,7 @@ function Ring({ items, onOpen, reflect, radius }: { items: CarouselItem[]; onOpe
       {reflect ? (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -H / 2 - 0.08, 0]}>
           <planeGeometry args={[30, 30]} />
-          <MeshReflectorMaterial blur={[300, 80]} resolution={512} mixBlur={1} mixStrength={18} roughness={0.85} depthScale={1} minDepthThreshold={0.4} maxDepthThreshold={1.4} color="#141210" metalness={0.4} mirror={0.5} />
+          <MeshReflectorMaterial blur={[300, 80]} resolution={reflectResolution} mixBlur={1} mixStrength={18} roughness={0.85} depthScale={1} minDepthThreshold={0.4} maxDepthThreshold={1.4} color="#141210" metalness={0.4} mirror={0.5} />
         </mesh>
       ) : null}
     </>
@@ -238,10 +239,11 @@ function PhoneFit({ radius }: { radius: number }) {
 
 export default function FootwearCarousel({ items, active, mobile, onOpen }: { items: CarouselItem[]; active: boolean; mobile: boolean; onOpen: (slug: string) => void }) {
   const radius = mobile ? phoneRadius(items.length) : RADIUS;
+  const quality = useAdaptiveDpr(mobile ? 2 : 1.6);
   return (
     <Canvas
       className="!absolute inset-0 touch-pan-y touch-pinch-zoom"
-      dpr={mobile ? [1, 2] : [1, 1.6]}
+      dpr={quality.dpr}
       // off-screen it still draws once when ready ('demand'), so the 3D setup is done before the shopper arrives
       frameloop={active ? 'always' : 'demand'}
       camera={{ position: [0, DESKTOP_CAM.y, DESKTOP_CAM.z], fov: 36 }}
@@ -252,10 +254,11 @@ export default function FootwearCarousel({ items, active, mobile, onOpen }: { it
       }}
       aria-hidden
     >
+      <PerformanceMonitor factor={1} onChange={quality.onChange} />
       <ambientLight intensity={1} />
       {mobile && <PhoneFit radius={radius} />}
       <Suspense fallback={null}>
-        <Ring items={items} onOpen={onOpen} reflect={!mobile} radius={radius} />
+        <Ring items={items} onOpen={onOpen} reflect={!mobile} radius={radius} reflectResolution={quality.tier === 'high' ? 512 : 256} />
       </Suspense>
     </Canvas>
   );

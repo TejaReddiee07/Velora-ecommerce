@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, Lightformer, Sparkles } from '@react-three/drei';
+import { Environment, Lightformer, PerformanceMonitor, Sparkles } from '@react-three/drei';
 import * as THREE from 'three';
+import { useAdaptiveDpr } from './useAdaptiveDpr';
 
 /**
  * Procedural silk: a high-resolution plane displaced in the vertex shader by
@@ -76,10 +77,11 @@ function Silk({ segments, scrollRef, pointerRef }: { segments: number; scrollRef
     if (s) {
       s.uniforms.uTime.value += delta;
       const target = pointerRef.current;
-      (s.uniforms.uPointer.value as THREE.Vector2).lerp(target, 0.04);
+      const k = (rate: number) => 1 - Math.pow(1 - rate, delta * 60); // same easing at 30 or 60 frames a second
+      (s.uniforms.uPointer.value as THREE.Vector2).lerp(target, k(0.04));
       const moved = target.x !== 0 || target.y !== 0;
-      s.uniforms.uRipple.value = THREE.MathUtils.lerp(s.uniforms.uRipple.value, moved ? 1 : 0, 0.02);
-      s.uniforms.uAmp.value = THREE.MathUtils.lerp(s.uniforms.uAmp.value, 1 - scrollRef.current * 0.55, 0.08);
+      s.uniforms.uRipple.value = THREE.MathUtils.lerp(s.uniforms.uRipple.value, moved ? 1 : 0, k(0.02));
+      s.uniforms.uAmp.value = THREE.MathUtils.lerp(s.uniforms.uAmp.value, 1 - scrollRef.current * 0.55, k(0.08));
     }
     if (mesh.current) {
       const p = scrollRef.current;
@@ -105,15 +107,20 @@ export default function SilkScene({ mobile, active, scrollRef }: { mobile: boole
     window.addEventListener('pointermove', onMove, { passive: true });
     return () => window.removeEventListener('pointermove', onMove);
   }, []);
+  const quality = useAdaptiveDpr(mobile ? 1.25 : 1.75);
+  // On mid and low-powered devices the slow silk waves are drawn 30 times a second instead of 60 (same look, half the work).
+  const capped = quality.tier !== 'high';
   return (
     <Canvas
       className="!absolute inset-0"
-      dpr={mobile ? [1, 1.25] : [1, 1.75]}
-      frameloop={active ? 'always' : 'never'}
+      dpr={quality.dpr}
+      frameloop={active ? (capped ? 'demand' : 'always') : 'never'}
       camera={{ position: [0, 0, 6], fov: 38 }}
       gl={{ antialias: !mobile, alpha: true, powerPreference: 'high-performance' }}
       aria-hidden
     >
+      <PerformanceMonitor factor={1} onChange={quality.onChange} bounds={capped ? () => [24, 32] : undefined} />
+      {active && capped && <FrameCap fps={30} />}
       <ambientLight intensity={0.15} />
       <directionalLight position={[4, 5, 6]} intensity={3} color="#fff4e2" />
       <directionalLight position={[-6, -2, 3]} intensity={0.9} color="#8fa6c9" />
@@ -126,4 +133,14 @@ export default function SilkScene({ mobile, active, scrollRef }: { mobile: boole
       </Environment>
     </Canvas>
   );
+}
+
+/** Asks for a new frame at a fixed rate (used with frameloop="demand"). */
+function FrameCap({ fps }: { fps: number }) {
+  const invalidate = useThree((s) => s.invalidate);
+  useEffect(() => {
+    const id = setInterval(() => invalidate(), 1000 / fps);
+    return () => clearInterval(id);
+  }, [invalidate, fps]);
+  return null;
 }

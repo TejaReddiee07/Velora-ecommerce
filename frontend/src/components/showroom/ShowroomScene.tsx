@@ -2,11 +2,12 @@
 
 import { Suspense, useEffect, useMemo, useRef } from 'react';
 import { Canvas, useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
-import { Html, SoftShadows, useTexture } from '@react-three/drei';
+import { Html, PerformanceMonitor, SoftShadows, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion } from 'framer-motion';
 import { imageUrl } from '@/lib/api';
 import { cn } from '@/lib/format';
+import { useAdaptiveDpr } from '@/components/three/useAdaptiveDpr';
 import { cutoutPath, type Rack } from './groups';
 
 /* ── Layout constants (metres) ─────────────────────────────────────────── */
@@ -420,11 +421,12 @@ function Gallery(props: SceneProps) {
 
 export default function ShowroomScene(props: SceneProps) {
   const { mobile, active } = props;
+  const quality = useAdaptiveDpr(mobile ? 1.5 : 1.75);
   return (
     <Canvas
       className="!absolute inset-0"
       shadows
-      dpr={mobile ? [1, 1.5] : [1, 1.75]}
+      dpr={quality.dpr}
       camera={{ position: [active * RACK_GAP, 1.5, 6], fov: mobile ? 50 : 38, near: 0.1, far: 60 }}
       gl={{ antialias: true, powerPreference: 'high-performance' }}
       onCreated={({ gl }) => {
@@ -432,6 +434,7 @@ export default function ShowroomScene(props: SceneProps) {
       }}
       aria-hidden
     >
+      <PerformanceMonitor factor={1} onChange={quality.onChange} />
       <color attach="background" args={[ROOM.fog]} />
       <fog attach="fog" args={[ROOM.fog, 9, 24]} />
       {!mobile && <SoftShadows size={22} samples={12} focus={0.55} />}

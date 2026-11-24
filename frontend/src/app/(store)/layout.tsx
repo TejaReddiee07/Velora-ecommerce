@@ -6,6 +6,7 @@ import { FlyToBag } from '@/components/store/FlyToBag';
 import { SmoothScroll } from '@/components/store/SmoothScroll';
 import { IntroLoader } from '@/components/store/IntroLoader';
 import { ThemeToggle } from '@/components/store/ThemeToggle';
+import { DevicePerformance } from '@/components/store/DevicePerformance';
 import { serverApi } from '@/lib/server-api';
 import type { PublicSettings } from '@/lib/types';
 
@@ -25,6 +26,7 @@ export default async function StoreLayout({ children }: { children: React.ReactN
       <SearchOverlay />
       <FlyToBag />
       <ThemeToggle />
+      <DevicePerformance />
     </div>
   );
 }

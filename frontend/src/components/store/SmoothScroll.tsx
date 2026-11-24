@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { currentTier } from '@/lib/perf';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,13 +14,18 @@ export function getLenis() {
   return lenis;
 }
 
-/** Lenis smooth scrolling synced with GSAP ScrollTrigger; off for reduced motion. */
+/**
+ * Lenis smooth scrolling synced with GSAP ScrollTrigger, for mouse wheels and trackpads. Off for reduced motion, on
+ * phones and tablets (their own scrolling is already smooth, and the engine would run on every frame for nothing) and
+ * on low-powered devices (lib/perf.ts).
+ */
 export function SmoothScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
+    const touchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    if (reduce || touchOnly || currentTier() === 'low') return;
     lenis = new Lenis({ duration: 1.1, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     const tick = (time: number) => lenis?.raf(time * 1000);

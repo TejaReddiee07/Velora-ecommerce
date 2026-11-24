@@ -43,12 +43,14 @@ export const viewport: Viewport = {
 // Applies the shopper's saved dark mode before the first paint, so the page never flashes light first
 // (see components/store/ThemeToggle.tsx). Light is the default when nothing is saved.
 const THEME_SCRIPT = `(function(){try{if(localStorage.getItem('velora_theme')==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}})()`;
+// Device performance level (lib/perf.ts): the saved level, or a first guess from the hardware the browser reports.
+const PERF_SCRIPT = `(function(){try{var t=null;try{var s=JSON.parse(localStorage.getItem('velora_perf')||'null');if(s&&s.v===1&&(s.tier==='low'||s.tier==='mid'||s.tier==='high'))t=s.tier}catch(e){}if(!t){var n=navigator,m=n.deviceMemory,c=n.hardwareConcurrency,sd=n.connection&&n.connection.saveData;t=(sd||(m&&m<=2)||(c&&c<=2))?'low':((m&&m<=4)||(c&&c<=4))?'mid':'high'}document.documentElement.setAttribute('data-perf',t)}catch(e){}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB" className={`${cormorant.variable} ${jost.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT + ';' + PERF_SCRIPT }} />
       </head>
       <body>
         <Providers>{children}</Providers>

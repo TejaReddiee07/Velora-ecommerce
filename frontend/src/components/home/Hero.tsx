@@ -10,6 +10,7 @@ import { imageUrl, srcSet } from '@/lib/api';
 import { useMediaQuery, useReducedMotion } from '@/lib/hooks';
 import { useVisibility, useWebGL } from '@/lib/use-visibility';
 import { EASE_LUXE } from '@/lib/motion';
+import { currentTier } from '@/lib/perf';
 import { ButtonLink } from '@/components/ui/Button';
 import type { Banner } from '@/lib/types';
 
@@ -56,6 +57,37 @@ export function Hero({ banners }: { banners: Banner[] }) {
   }, [el, reduced]);
 
   const show3D = webgl && !reduced;
+  // On mid and low-powered devices (lib/perf.ts) the photo and text come first and the 3D silk fades in once the page has
+  // finished opening, so the phone is free to respond straight away. Powerful devices show it at once, as before.
+  const [silkReady, setSilkReady] = useState(false);
+  const [silkDeferred, setSilkDeferred] = useState(false);
+  useEffect(() => {
+    if (!show3D) return;
+    if (currentTier() === 'high') {
+      setSilkReady(true);
+      return;
+    }
+    setSilkDeferred(true);
+    // after the page has loaded, plus a short pause (longer on low-powered devices), then at the next idle moment
+    const pause = currentTier() === 'low' ? 3000 : 1000;
+    const w = window as Window & { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number; cancelIdleCallback?: (id: number) => void };
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let idle: number | undefined;
+    const show = () => setSilkReady(true);
+    const afterLoad = () => {
+      timer = setTimeout(() => {
+        if (w.requestIdleCallback) idle = w.requestIdleCallback(show, { timeout: 2000 });
+        else show();
+      }, pause);
+    };
+    if (document.readyState === 'complete') afterLoad();
+    else window.addEventListener('load', afterLoad, { once: true });
+    return () => {
+      window.removeEventListener('load', afterLoad);
+      if (timer) clearTimeout(timer);
+      if (idle !== undefined) w.cancelIdleCallback?.(idle);
+    };
+  }, [show3D]);
 
   return (
     <section ref={ref} className="theme-lock grain relative h-[100svh] min-h-[640px] overflow-hidden bg-ink text-ivory" aria-label="Featured collection" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
@@ -69,7 +101,15 @@ export function Hero({ banners }: { banners: Banner[] }) {
         )}
       </AnimatePresence>
       <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink/70 to-ink/20" />
-      {show3D && <SilkScene mobile={mobile} active={visible} scrollRef={scrollRef} />}
+      {show3D &&
+        silkReady &&
+        (silkDeferred ? (
+          <motion.div className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2, ease: EASE_LUXE }}>
+            <SilkScene mobile={mobile} active={visible} scrollRef={scrollRef} />
+          </motion.div>
+        ) : (
+          <SilkScene mobile={mobile} active={visible} scrollRef={scrollRef} />
+        ))}
       {/* Legibility scrim above the silk, behind the copy */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/35 to-transparent md:via-ink/20" />
       <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink to-transparent" />
